@@ -28,6 +28,7 @@
         "@fortawesome/fontawesome-free": "^5.13.0",
         "admin-lte": "^3.0.0-alpha.2",
         "font-awesome": "^4.7.0",
-        "node-sass": "^4.13.1"
+        "node-sass": "^4.13.1",
+        "vue-router": "^3.1.6"
     }
 }
