@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware(['auth:api', 'scope:view-orders'])->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::apiResources(['user'=>'API\UserController']);
+/*Route::get('/user', function () {
+    // Access token has both "check-status" and "place-orders" scopes...
+    Route::apiResources(['user'=>'API\UserController']);
+
+})->middleware(['auth:api', 'scope:view-orders']);
+*/
+//Route::apiResources(['user'=>'API\UserController']);
+/*Route::group(['middleware' => 'client_credentials'], function () {
+//your route
+
+});
+*/
