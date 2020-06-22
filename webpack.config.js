@@ -4,7 +4,8 @@
  * a generic config object will be constructed for us.
  */
 let mix = require('../src/index');
-
+//const mix = require('laravel-mix');
+var dotenv = require('dotenv').config('./.env');
 let ComponentFactory = require('../src/components/ComponentFactory');
 
 new ComponentFactory().installAll();
@@ -23,6 +24,8 @@ Mix.dispatch('init', Mix);
  * user, we can dynamically create a configuration object
  * for Webpack. And that's all there is to it. Simple!
  */
+
+
 
 let WebpackConfig = require('../src/builder/WebpackConfig');
 

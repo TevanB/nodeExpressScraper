@@ -1,4 +1,4 @@
-
+//require('dotenv').config();
 
 
 
@@ -42,7 +42,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  window.Echo = new Echo({
      broadcaster: 'pusher',
      namespace: null,
-     key: 'de1a64f844f44302b21d',
-     cluster: 'us2',
+     key: process.env.MIX_PUSHER_APP_KEY,
+     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
      forceTLS: true
  });

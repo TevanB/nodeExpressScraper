@@ -113,6 +113,7 @@ let Fire = new Vue();
 window.Fire = Fire;
 
 
+console.log(process.env);
 
 //$('#sideUserInfo')
 

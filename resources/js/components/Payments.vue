@@ -975,11 +975,15 @@
             }
           },
           payoutAll(person){
+          //console.log(process);
+          //console.log(process.env);
+          //console.log(process.env.MIX_PAYPAL_AUTHORIZATION);
+
             if(person.payout > 0){
               const config = {
                   method: 'post',
                   url: 'https://api.sandbox.paypal.com/v1/payments/payouts',
-                  headers: {'Content-Type': 'application/json', 'Authorization': 'Basic QVVfZjZvcDhFLUlqdC0wMGp0aWpfbjFKZ3VKdDY2Q1l4b2loWlBOSk0tTWRHaUQ5cVFVNXMxd0YyU19vRDVrc0pjcndlNS1iNlM3UFBFMjU6RUxDdmdoekxIb1JiM25LR2wwLWFZYjk5bG8yc2VONlR2Q3RPS3NTS2ZjcDgyUi1uaF81MjYyVlUybjhudTh3MTlwRkFZdEV2b0lqV0w3Tkw='},
+                  headers: {'Content-Type': 'application/json', 'Authorization': process.env.MIX_PAYPAL_AUTHORIZATION},
                   data:{
                     'sender_batch_header': {
                       'sender_batch_id': Date.now(),
