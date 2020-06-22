@@ -143,37 +143,44 @@
             </div>
 
         <div class="container-fluid" v-if="$gate.isBoosterOrCoach()">
-          <div class="row justify-content-center">
-            <div class="col">
-              <div class="card border border-primary mb-3 ml-5" style="max-width: 18rem;">
-                <div class="card-body text-dark">
-                  <h4 class="card-featured text-center">You Have Completed</h4><br>
-                  <h3 class="card-featured text-center text-primary">{{user.completed_orders}}</h3><br>
-                  <h4 class="text-center">Order(s)</h4>
+          <div class="card">
+            <div class="card-header bg-primary">
+              Current Stats
+            </div>
+            <div class="card-body">
+              <div class="row justify-content-center">
+                <div class="col">
+                  <div class="card border border-primary mb-3 ml-5" style="max-width: 18rem;">
+                    <div class="card-body text-dark">
+                      <h4 class="card-featured text-center">You Have Completed</h4><br>
+                      <h3 class="card-featured text-center text-primary">{{user.completed_orders}}</h3><br>
+                      <h4 class="text-center">Order(s)</h4>
+                    </div>
+                  </div>
                 </div>
+
+                <div class="col">
+                  <div class="card border border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-body text-dark">
+                      <h4 class="card-featured text-center">You Currently Have</h4><br>
+                      <h3 class="card-featured text-center text-primary">{{user.ongoing_orders}}</h3><br>
+                      <h4 class="text-center">Order(s)</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card border border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-body text-dark">
+                      <h4 class="card-featured text-center">Your Current Payout Is</h4><br>
+                      <h3 class="card-featured text-center text-primary">${{user.payout}}</h3><br>
+                      <h4 class="text-center">USD</h4>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
-
-            <div class="col">
-              <div class="card border border-primary mb-3" style="max-width: 18rem;">
-                <div class="card-body text-dark">
-                  <h4 class="card-featured text-center">You Currently Have</h4><br>
-                  <h3 class="card-featured text-center text-primary">{{user.ongoing_orders}}</h3><br>
-                  <h4 class="text-center">Order(s)</h4>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="card border border-primary mb-3" style="max-width: 18rem;">
-                <div class="card-body text-dark">
-                  <h4 class="card-featured text-center">Your Current Payout Is</h4><br>
-                  <h3 class="card-featured text-center text-primary">${{user.payout}}</h3><br>
-                  <h4 class="text-center">USD</h4>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
 
@@ -243,6 +250,88 @@
                   </div>
                   <div class="timeline-footer">
                     <a href="https://trustpilot.com/evaluate/bmsboosting.com" target="_blank" class="btn btn-primary btn-sm">Review</a>
+                  </div>
+
+            </div>
+          </div>
+              <div>
+                <i class="fas fa-clock bg-gray"></i>
+              </div>
+              </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="container-fluid mt-5" v-if="$gate.isBoosterOrCoach()">
+          <div class="row">
+            <div class="col">
+            <h2 class="mt-2 mb-5 ml-4">Order Steps</h2>
+            <div class="timeline">
+              <!-- Timeline time label -->
+
+              <div>
+              <!-- Before each timeline item corresponds to one icon on the left scale -->
+                <i class="fas fa-money-bill-wave-alt bg-blue"></i>
+                <!-- Timeline item -->
+                <div class="timeline-item">
+                <!-- Time -->
+                  <!-- Header. Optional -->
+                  <h3 class="timeline-header"><a href="#">Claiming Order</a></h3>
+                  <!-- Body -->
+                  <div class="timeline-body">
+                    When a client orders, the order will be sent to the Orders page (accessible from side menu).<br>
+                    To claim an order simply click the claim button next to the order.<br>
+                    All boosters have a limit of 3 claims at a time, please finish your order before claiming more.<br>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div>
+                  <i class="fas fa-user-check bg-blue"></i>
+                  <div class="timeline-item">
+                    <h3 class="timeline-header"><a href="#">Order Claimed</a></h3>
+                    <div class="timeline-body">
+                      Once you claim an order, the order dashboard will appear under the "My Orders" tab.
+                      You will be able to communicate with the client, see order details, and track the account's rank through this dashboard.<br>
+                      You are not allowed to contact the client outside of this dashboard unless given permission from management, doing so will result in penalties.<br>
+                      It is important to keep an eye on the Order Status, if it says "Paused" it means the client has paused the order and you must wait until the status changed back to "Claimed" to continue.<br>
+
+                      If a client violates parts of our <a href="http://www.bmsboosting.com/tos" target="_blank">Terms of Service</a>, please inform management.
+
+                      </div>
+
+                </div>
+            </div>
+
+            <div>
+                <i class="fas fa-check-circle bg-blue"></i>
+                <div class="timeline-item">
+                  <h3 class="timeline-header"><a href="#">Order Completion</a></h3>
+                  <div class="timeline-body">
+                    When the order has been completed, you can click the "Mark Completed" button on your Dashboard, sending a notification to management to verify the completion of the order. <br>
+                    There are penalties for false reports of order completion, you must use this button with care after making sure your order has been completed.<br>
+                    Once your order gets approved for completion, the link to the dashboard will disappear from your "My Orders" menu and your current payout will be update.<br>
+                    If there are issues in the process, please contact management.<br>
+                    </div>
+
+              </div>
+          </div>
+
+          <div>
+              <i class="fas fa-check-circle bg-blue"></i>
+              <div class="timeline-item">
+                <h3 class="timeline-header"><a href="#">Payouts</a></h3>
+                <div class="timeline-body">
+                  Congratulations on completing your order and obtaining a payout!
+                  Payouts get sent to the email attached to your account, it is important that you make sure you use the same email for your BMS Account as your PayPal.<br>
+                  You can request payouts under the "Payouts" tab in the "Profile" page and a request for a payout will be sent to management.<br>
+                  Payout requests are usually approved on weekends and will be sent instantly once approved.<br>
+                  </div>
+                  <div class="timeline-footer">
+                    <a href="http://localhost/profile" target="_blank" class="btn btn-primary btn-sm">Profile</a>
                   </div>
 
             </div>

@@ -98,6 +98,12 @@
 
                   </div>
                 </div>
+                <div class="col">
+                  <h2 class="mt-3 mb-3 ml-3">Order Completion Requests</h2>
+                  <div class="row container-fluid" id="doneAlerts">
+
+                  </div>
+                </div>
               </div>
               <h2 class="mt-3 mb-3 ml-3">Ongoing Orders</h2>
 
@@ -318,6 +324,7 @@
 
             <div class="card collapsed-card" v-for="user in users" :key="user.id" v-if="user.type!='client'">
             {{checkDropReq(user)}}
+
             <div v-if="checkRequested(user) == true">
                       <div class="ribbon-wrapper">
                         <div class="ribbon bg-primary">
@@ -576,9 +583,14 @@
                 console.log(response);
                 for(let i=0; i<response.length; i++){
                   if(response[i].order_status == 'reassign'){
-                  console.log('reassign match');
+                  //console.log('reassign match');
                   $('#reassignAlerts').append(
                   "<div class='alert alert-warning alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-exclamation-triangle'></i> Reassign Request!</h5>Reassign request from Order # "+ response[i].order_id +" .</div>");
+
+                  }else if(response[i].order_status == 'verify'){
+                  //console.log('oogabooga12');
+                  $('#doneAlerts').append(
+                  "<div class='alert alert-success alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-check'></i> Completion Request!</h5>Completion request from Order # "+ response[i].order_id +" .</div>");
 
                   }
                 }
@@ -609,6 +621,12 @@
                 $('#alert'+e.orderID).remove();
                 $('#dropAlerts').append(
                 "<div id='alert"+e.orderID+"' class='alert alert-warning alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-exclamation-triangle'></i> Drop Request!</h5>Drop request from Order # "+ e.orderID +" .</div>");
+
+              })
+              .listen('done-request', (e) => {
+                $('#done'+e.orderID).remove();
+                $('#doneAlerts').append(
+                "<div id='done"+e.orderID+"' class='alert alert-success alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-exclamation-triangle'></i> Completion Request!</h5>Completion request from Order # "+ e.orderID +" .</div>");
 
               });
               }
@@ -935,11 +953,23 @@
           },
           checkDropReq(user){
             for(let i=0; i<user.ongoing_orders_arr.length; i++){
-            console.log(user.ongoing_orders_arr[i].order_status+" "+user.name);
+            //console.log(user.ongoing_orders_arr[i].order_status+" "+user.name);
               if(user.ongoing_orders_arr[i].order_status == 'request_drop'){
                 $('#alert'+user.ongoing_orders_arr[i].order_id).remove();
                 $('#dropAlerts').append(
                 "<div id='alert"+user.ongoing_orders_arr[i].order_id+"' class='alert alert-warning alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-exclamation-triangle'></i> Drop Request!</h5>Drop request from Order # "+ user.ongoing_orders_arr[i].order_id +" .</div>");
+
+              }
+            }
+          },
+          checkDoneReq(user){
+            for(let i=0; i<user.ongoing_orders_arr.length; i++){
+            //console.log(user.ongoing_orders_arr[i].order_status+" "+user.name);
+              if(user.ongoing_orders_arr[i].order_status == 'verify'){
+              console.log('alnsfklbadslg')
+                $('#done'+user.ongoing_orders_arr[i].order_id).remove();
+                $('#doneAlerts').append(
+                "<div id='done"+user.ongoing_orders_arr[i].order_id+"' class='alert alert-success alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-exclamation-triangle'></i> Completion Request!</h5>Completion request from Order # "+ user.ongoing_orders_arr[i].order_id +" .</div>");
 
               }
             }

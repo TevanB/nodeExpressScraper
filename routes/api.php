@@ -48,6 +48,8 @@ Route::put('reassign/{id}', 'API\OrderController@reassignOrder');
 Route::get('accounts', 'API\AccountsController@checkAcc');
 Route::put('orderRe', 'API\OrderController@createRe');
 Route::put('drop/{id}', 'API\OrderController@dropRequest');
+Route::put('requestComplete/{id}', 'API\OrderController@requestComplete');
+Route::put('requestAllPayouts/{id}', 'API\OrderController@requestAllPayouts');
 
 Route::post('create-paypal-transaction', 'PaypalRelated\CreateOrder@createOrder');
 Route::post('get-paypal-transaction', 'PaypalRelated\GetOrder@getOrder');

@@ -12,6 +12,7 @@ use App\Events\NewPurchase;
 
 use App\Events\RequestBoosterChange;
 use App\Events\RequestOrderDrop;
+use App\Events\RequestOrderDone;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ClientClaimOrderMail;
@@ -314,6 +315,21 @@ echo(json_encode($boosterOrderArr1)."\n");
       broadcast(new RequestBoosterChange($id))->toOthers();
 
     }
+    public function requestAllPayouts(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $userOrderArr = $user->current_orders_arr;
+        foreach($userOrderArr as $key => $item){
+          //echo(json_encode($key)."\n");
+          if($item['payout_status'] != 'completed'){
+            $userOrderArr[$key]['payout_status'] = 'requested';
+
+          }
+        }
+        $user->update([
+          'current_orders_arr' => $userOrderArr,
+        ]);
+    }
     public function userPayouts(Request $request, $id)
     {
       if( \Gate::allows('isAdmin')){
@@ -331,19 +347,49 @@ echo(json_encode($boosterOrderArr1)."\n");
         $user = User::findOrFail($id);
         $userOrderArr = $user->current_orders_arr;
         foreach($userOrderArr as $key => $item){
-          //echo(json_encode($item)."\n");
-          if($item['payout_status'] != "completed"){
-            $item['payout_status'] = 'completed';
+          //echo(json_encode($key)."\n");
+          if($item['payout_status'] != 'completed'){
+            $userOrderArr[$key]['payout_status'] = 'completed';
+            //$item['payout_status'] = 'completed';
             //echo("match" . "\n");
             //echo(json_encode($key) ."\n");
+
+            //echo(json_encode($item) ."\n");
             break;
           }
         }
+        //echo(json_encode($userOrderArr) . "\n");
         $user->update([
           'payout' => 0,
           'current_orders_arr' => $userOrderArr,
         ]);
       }
+    }
+    public function requestComplete(Request $request, $id)
+    {
+      $order = Order::findOrFail($id);
+      $booster = User::findOrFail($order->booster_id);
+      $boosterOrderArr = $booster->ongoing_orders_arr;
+      //$index = 0;
+      //$specialIndex = 0;
+      foreach($boosterOrderArr as $key => $item){
+        //echo(json_encode($item)."\n");
+        if($item['order_id'] == $id){
+          $item['order_status'] = 'verify';
+          //$specialIndex = $index;
+          //echo("match" . "\n");
+          //echo(json_encode($key) ."\n");
+          break;
+        }
+        //$index = $index + 1;
+      }
+      $booster->update([
+        'ongoing_orders_arr' => $boosterOrderArr,
+      ]);
+      $order->update([
+        'order_status' => 'verify',
+      ]);
+      broadcast(new RequestOrderDone($order->order_id))->toOthers();
     }
     public function markCompleted(Request $request, $id){
       $order = Order::findOrFail($id);
@@ -364,6 +410,7 @@ echo(json_encode($boosterOrderArr1)."\n");
         $index = $index + 1;
       }
       $tempOrderInfo = $boosterOrderArr[$specialIndex];
+      $tempOrderInfo['order_status'] = 'completed';
       array_splice($boosterOrderArr, $specialIndex, 1);
       array_push($boosterOrderArr2, $tempOrderInfo);
 
@@ -395,6 +442,8 @@ echo(json_encode($boosterOrderArr1)."\n");
         $index = $index + 1;
       }
       $tempOrderInfo = $clientOrderArr[$specialIndex];
+      $tempOrderInfo['order_status'] = 'completed';
+
       array_splice($clientOrderArr, $specialIndex, 1);
       array_push($clientOrderArr2, $tempOrderInfo);
       $client->update([

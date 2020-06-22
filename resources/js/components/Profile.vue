@@ -82,7 +82,7 @@
                                                 </tr>
                                               </thead>
                                               <tbody>
-                                                <tr v-for="order in user.current_orders_arr" :key="order.order_id" v-if="order.payout_status != 'completed'">
+                                                <tr v-for="order in user.current_orders_arr" :key="order.order_id">
 
                                                   <td>{{order.order_id}}</td>
 
@@ -236,12 +236,37 @@
             }
           },
           requestAllPayouts(){
-            for(let i=0; i<this.form.current_orders_arr; i++){
-              requestPayout(this.form.current_orders_arr[i]);
+            let found = false;
+            for(let i=0; i<this.user.current_orders_arr.length; i++){
+              if(this.user.current_orders_arr[i].payout_status != 'completed'){
+                axios.put('http://localhost/api/requestAllPayouts/'+this.user.id).then((data)=>{
+                  toast.fire({
+                    icon: 'success',
+                    title: 'Payout Requests Sent.'
+                  });
+                });
+                found = true;
+                break;
+              }
             }
+            if(!found){
+              toast.fire({
+                icon: 'error',
+                title: 'You have no payouts.'
+              });
+            }
+            /*axios.put('http://localhost/api/requestAllPayouts/'+this.user.id).then((data)=>{
+              toast.fire({
+                icon: 'success',
+                title: 'Payout Requests Sent.'
+              });
+            });*/
+            /*for(let i=0; i<this.form.current_orders_arr; i++){
+              requestPayout(this.form.current_orders_arr[i]);
+            }*/
           },
           requestPayout(order){
-            if(order.payout_status !== 'completed'){
+            if(order.payout_status != 'completed'){
               order.payout_status = 'requested';
               console.log(order);
               axios.put('http://localhost/api/orders/'+order.order_id, order).then(()=>{
@@ -253,6 +278,11 @@
                 }
               }
               axios.put('http://localhost/api/me', this.user);
+            }else{
+              toast.fire({
+                icon: 'error',
+                title: 'This payout has already been sent.'
+              });
             }
           },
           getProfilePhoto(){

@@ -189,42 +189,42 @@
 
 
                                  <div v-if="orderInfo.type=='duo'">
-                                 <div class="row">
-                                   <div class="col">
-                                   <p class="font-weight-bold">Order Summoner Name: </p>
-                                   {{orderInfo.summoner_name}}
-
-                                   </div>
-                                   <div class="col">
-                                   <p class="font-weight-bold">Order Message: </p>
-                                   {{orderInfo.message}}
-                                   <p class="font-weight-bold mt-3">Order Extras: </p>
-                                   <div v-for="extra in orderInfo.extras">
-                                   {{extra}} <br>
-                                   </div>
-                                   </div>
-                                   </div>
-
-
-
-                                   <div v-if="orderInfo.type=='solo'">
                                    <div class="row">
-                                     <div class="col">
-                                     <p class="font-weight-bold">Order Username: </p>
-                                     {{orderInfo.username}}
-                                     <p class="font-weight-bold mt-3">Order Password: </p>
-                                     {{orderInfo.password}}
-                                     </div>
-                                     <div class="col">
-                                     <p class="font-weight-bold">Order Message: </p>
-                                     {{orderInfo.message}}
-                                     <p class="font-weight-bold mt-3">Order Extras: </p>
-                                     <div v-for="extra in orderInfo.extras">
-                                     {{extra}} <br>
-                                     </div>
-                                     </div>
-                                     </div>
+                                    <div class="col">
+                                      <p class="font-weight-bold">Order Summoner Name: </p>
+                                      {{orderInfo.summoner_name}}
+
+                                    </div>
+                                    <div class="col">
+                                      <p class="font-weight-bold">Order Message: </p>
+                                      {{orderInfo.message}}
+                                      <p class="font-weight-bold mt-3">Order Extras: </p>
+                                      <div v-for="extra in orderInfo.extras">
+                                        {{extra}} <br>
+                                      </div>
+                                    </div>
+                                  </div>
+
 </div>
+
+                                   <div v-else-if="orderInfo.type=='solo'">
+                                     <div class="row">
+                                       <div class="col">
+                                         <p class="font-weight-bold">Order Username: </p>
+                                         {{orderInfo.username}}
+                                         <p class="font-weight-bold mt-3">Order Password: </p>
+                                         {{orderInfo.password}}
+                                       </div>
+                                       <div class="col">
+                                       <p class="font-weight-bold">Order Message: </p>
+                                       {{orderInfo.message}}
+                                       <p class="font-weight-bold mt-3">Order Extras: </p>
+                                       <div v-for="extra in orderInfo.extras">
+                                        {{extra}} <br>
+                                       </div>
+                                       </div>
+                                     </div>
+                                  </div>
 
                             </div>
                          </div>
@@ -466,9 +466,9 @@
                             <p class="font-weight-bold">Order Message: </p>
                             {{orderInfo.message}}
                             <p class="font-weight-bold mt-3">Order Extras: </p>
-                            <div v-for="extra in orderInfo.extras">
-                            {{extra}} <br>
-                            </div>
+                              <div v-for="extra in orderInfo.extras">
+                                {{extra}} <br>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -929,7 +929,21 @@ import HasError from 'vform';
           }
         },
         requestComplete(){
-          this.form.order_status = 'verify';
+
+          axios.put('http://localhost/api/requestComplete/'+this.form.order_id).then(()=>{
+            swal.fire(
+              'Request Submitted',
+              'Management will now inspect completion, order remains active until approved.',
+              'success'
+            )
+          }).catch(()=>{
+            swal.fire(
+              'Error',
+              'Something went wrong.',
+              'error'
+            )
+          });
+          /*this.form.order_status = 'verify';
           axios.put("http://localhost/api/order/"+this.form.order_id, this.form).then(()=>{
             swal.fire(
               'Request Submitted',
@@ -961,7 +975,7 @@ import HasError from 'vform';
           }).catch(()=>{
             console.log("User Update Failed");
 
-          });
+          });*/
 
 
         },
