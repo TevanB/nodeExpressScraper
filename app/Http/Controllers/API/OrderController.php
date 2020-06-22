@@ -1,0 +1,429 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Order;
+use App\User;
+use App\Http\Requests;
+use App\Events\OrderClaimed;
+use App\Events\NewPurchase;
+
+use App\Events\RequestBoosterChange;
+use App\Events\RequestOrderDrop;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ClientClaimOrderMail;
+use App\Mail\ClientCompletedOrderMail;
+use Illuminate\Support\Facades\DB;
+
+use App\Http\Resources\Order as OrderResource;
+class OrderController extends Controller
+{
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+
+
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+      if( \Gate::allows('isAdmin') || \Gate::allows('isBooster') || \Gate::allows('isCoach')){
+
+        $orders = Order::paginate(999999999);
+        return OrderResource::collection($orders);
+        //return Order::latest()->paginate(4);
+      }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $order = Order::findOrFail($request->order_id);
+        $order->order_type = $request->input('order_type');
+        $order->order_price = $request->input('order_price');
+        $order->order_message = $request->input('order_message');
+        $order->order_status = $request->input('order_status');
+        $order->payout_status = $request->input('payout_status');
+        $order->client_id = $request->input('client_id');
+        $order->booster_id = $request->input('booster_id');
+        //return ['message'->$order->booster_id];
+        if($order->save()){
+          return new OrderResource($order);
+        }
+        //$order->update($request->all());
+
+    }
+    public function create(Request $request)
+    {
+      /*$this->validate($request,[
+        'name' => 'required|string|max:191',
+        'email' => 'required|string|email|max:191|unique:users',
+        'type' => 'required',
+        'password' => 'required|string|min:6'
+
+      ]);*/
+
+      broadcast(new NewPurchase())->toOthers();
+
+      return Order::create([
+        'order_type' => $request['order_type'],
+        'order_price' => $request['order_price'],
+        'order_message' => $request['order_message'],
+        'order_id' => $request['order_id'],
+        'client_id' => $request['client_id'],
+      ]);
+    }
+    public function createRe(Request $request)
+    {
+      /*$this->validate($request,[
+        'name' => 'required|string|max:191',
+        'email' => 'required|string|email|max:191|unique:users',
+        'type' => 'required',
+        'password' => 'required|string|min:6'
+
+      ]);*/
+      $newReq = $request;
+
+      $p2 = $newReq[1];
+      $p1 = $newReq[0];
+      echo json_encode($p1)."\n";
+      echo json_encode($p2)."\n";
+      echo gettype($p1)."\n";
+      echo gettype($p2)."\n";
+      echo $p1['client_id']."\n";
+      //p1 is the client ongoing_orders_arr obj
+
+
+        //this is a reassign request by period signifier
+        $user = User::findOrFail($p1['client_id']);
+        if($user){
+          $prevArr = $user->ongoing_orders_arr;
+          array_push($prevArr, $p1);
+          $user->update([
+            'ongoing_orders_arr' => $prevArr,
+          ]);
+        }
+
+
+      return Order::create([
+        'order_type' => $p2['order_type'],
+        'order_price' => $p2['order_price'],
+        'order_message' => $p2['order_message'],
+        'order_id' => $p2['order_id'],
+        'client_id' => $p2['client_id'],
+      ]);
+    }
+    public function claim(Request $request, $id){
+
+      $order = Order::findOrFail($id);
+      $order->booster_id = $request->input('booster_id');
+
+
+      $order->order_status = $request->input('order_status');
+
+      $client = User::findOrFail($order->client_id);
+
+      //if($request->input('order_status') == "claimed"){
+        Mail::to($client->email)->send(new ClientClaimOrderMail($order));
+      //}else if($request->input('order_status') == "completed"){
+      broadcast(new OrderClaimed($order->order_id))->toOthers();
+      //}
+      if($order->save()){
+        return new OrderResource($order);
+      }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $order = Order::findOrFail($id);
+
+        $orderReturn = $order;
+
+        return new OrderResource($orderReturn);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+      if( \Gate::allows('isAdmin')){
+
+        if($request->order_status == 'reassigned'){
+
+          $order = Order::findOrFail($id);
+          $client = User::findOrFail($order->client_id);
+          $booster = User::findOrFail($order->booster_id);
+
+          $boosterOrderNum = $booster->ongoing_orders;
+          $boosterCompNum = $booster->completed_orders;
+          $boosterOrderNum = $boosterOrderNum - 1;
+          $boosterCompNum = $boosterCompNum + 1;
+          $boosterOrderArr1 = $booster->ongoing_orders_arr;
+          $boosterOrderArr2 = $booster->current_orders_arr;
+          $orderItem1 = '';
+          $index1 = 0;
+          $properIndex1 = -1;
+          foreach($boosterOrderArr1 as $item){
+
+            if($item['order_id']  ==  $id){
+              $orderItem1 = $item;
+              $properIndex1 = $index1;
+              break;
+            }
+            $index1 = $index1 + 1;
+          }
+          echo($properIndex1."\n");
+echo(json_encode($boosterOrderArr1)."\n");
+          array_splice($boosterOrderArr1, $properIndex1, 1);
+          array_push($boosterOrderArr2, $orderItem1);
+          echo(json_encode($boosterOrderArr1)."\n");
+          $booster->update([
+            'ongoing_orders' => $boosterOrderNum,
+            'completed_orders' => $boosterCompNum,
+            'ongoing_orders_arr' => $boosterOrderArr1,
+            'current_orders_arr' => $boosterOrderArr2,
+          ]);
+
+          $clientOrderNum = $client->ongoing_orders;
+          $clientCompNum = $client->completed_orders;
+          $clientOrderNum = $clientOrderNum - 1;
+          $clientCompNum = $clientCompNum + 1;
+          $clientOrderArr1 = $client->ongoing_orders_arr;
+          $clientOrderArr2 = $client->current_orders_arr;
+          $orderItem = '';
+          $index = 0;
+          $properIndex = -1;
+          foreach($clientOrderArr1 as $item){
+            if($item['order_id']  ==  $id){
+              $orderItem = $item;
+              $properIndex = $index;
+              break;
+            }
+            $index = $index + 1;
+          }
+          echo($properIndex."\n");
+          array_splice($clientOrderArr1, $properIndex, 1);
+          array_push($clientOrderArr2, $orderItem);
+
+          $client->update([
+            'ongoing_orders' => $clientOrderNum,
+            'completed_orders' => $clientCompNum,
+            'ongoing_orders_arr' => $clientOrderArr1,
+            'current_orders_arr' => $clientOrderArr2,
+          ]);
+
+        }else{
+
+
+          $order = Order::findOrFail($id);
+          $client = User::findOrFail($order->client_id);
+
+          $clientOrderNum = $client->ongoing_orders;
+          $clientCompNum = $client->completed_orders;
+          $clientOrderNum = $clientOrderNum - 1;
+          $clientCompNum = $clientCompNum + 1;
+
+          $client->update([
+            'ongoing_orders' => $clientOrderNum,
+            'completed_orders' => $clientCompNum
+          ]);
+
+          $order->update($request->all());
+          if($order->order_status == "completed" && $order->payout_status != 'completed'){
+            Mail::to($client->email)->send(new ClientCompletedOrderMail($order));
+          }
+          return $order;
+        }
+      }
+    }
+    public function adminPayouts(Request $request)
+    {
+      if( \Gate::allows('isAdmin')){
+        $orders = DB::table('orders')->get();
+        foreach($orders as $order){
+          if((substr($order->order_type, -1) != ".") && ($order->payout_status == "in-progress")){
+            $tempOrder1 = Order::findOrFail($order->order_id);
+            $tempOrder2 = $tempOrder1;
+            $tempOrder2->payout_status = "processed";
+            $tempOrder1->update([$tempOrder2->payout_status]);
+          }
+        }
+      }
+    }
+    public function orderInfo(Request $request, $id){
+      $order = Order::findOrFail($id);
+      $result = array(
+        $order->booster_id,
+        $order->client_id,
+      );
+      return $result;
+    }
+    public function dropRequest(Request $request, $id){
+      $order = Order::findOrFail($id);
+      $booster = User::findOrFail($order->booster_id);
+      $boosterOrderArr = $booster->ongoing_orders_arr;
+      foreach($boosterOrderArr as $key => $item){
+        //echo(json_encode($item)."\n");
+        if($item['order_id'] == $id){
+          $item['order_status'] = 'request_drop';
+          //echo("match" . "\n");
+          //echo(json_encode($key) ."\n");
+          break;
+        }
+      }
+      //echo(json_encode($boosterOrderArr)."\n");
+      $booster->update([
+        'ongoing_orders_arr' => $boosterOrderArr,
+
+      ]);
+      broadcast(new RequestOrderDrop($id))->toOthers();
+
+
+    }
+    public function reassignOrder(Request $request, $id){
+      $tempOrder1 = Order::findOrFail($id);
+      $tempOrder2 = $tempOrder1;
+      $tempOrder2->order_status = "reassign";
+      $tempOrder1->update([$tempOrder2->order_status]);
+      broadcast(new RequestBoosterChange($id))->toOthers();
+
+    }
+    public function userPayouts(Request $request, $id)
+    {
+      if( \Gate::allows('isAdmin')){
+        $orders = DB::table('orders')->get();
+        foreach($orders as $order){
+          if($order->booster_id == $id){
+            if($order->payout_status == 'processed' || $order-> payout_status == 'requested'){
+              $tempOrder1 = Order::findOrFail($order->order_id);
+              $tempOrder2 = $tempOrder1;
+              $tempOrder2->payout_status = 'completed';
+              $tempOrder1->update([$tempOrder2->payout_status]);
+            }
+          }
+        }
+        $user = User::findOrFail($id);
+        $userOrderArr = $user->current_orders_arr;
+        foreach($userOrderArr as $key => $item){
+          //echo(json_encode($item)."\n");
+          if($item['payout_status'] != "completed"){
+            $item['payout_status'] = 'completed';
+            //echo("match" . "\n");
+            //echo(json_encode($key) ."\n");
+            break;
+          }
+        }
+        $user->update([
+          'payout' => 0,
+          'current_orders_arr' => $userOrderArr,
+        ]);
+      }
+    }
+    public function markCompleted(Request $request, $id){
+      $order = Order::findOrFail($id);
+      $client = User::findOrFail($order->client_id);
+      $booster = User::findOrFail($order->booster_id);
+      $boosterOrderArr = $booster->ongoing_orders_arr;
+      $boosterOrderArr2 = $booster->current_orders_arr;
+      $index = 0;
+      $specialIndex = 0;
+      foreach($boosterOrderArr as $key => $item){
+        //echo(json_encode($item)."\n");
+        if($item['order_id'] == $id){
+          $specialIndex = $index;
+          echo("match" . "\n");
+          //echo(json_encode($key) ."\n");
+          break;
+        }
+        $index = $index + 1;
+      }
+      $tempOrderInfo = $boosterOrderArr[$specialIndex];
+      array_splice($boosterOrderArr, $specialIndex, 1);
+      array_push($boosterOrderArr2, $tempOrderInfo);
+
+      $orderPrice = $order->order_price;
+      $orderPrice = ($orderPrice * 0.96)-0.3;
+      $orderPrice = floor($orderPrice*0.7);
+      $booster->update([
+        'ongoing_orders_arr' => $boosterOrderArr,
+        'current_orders_arr' => $boosterOrderArr2,
+        'ongoing_orders' => $booster->ongoing_orders - 1,
+        'completed_orders' => $booster->completed_orders + 1,
+        'payout' => $booster->payout + $orderPrice
+
+      ]);
+
+
+      $clientOrderArr = $client->ongoing_orders_arr;
+      $clientOrderArr2 = $client->current_orders_arr;
+      $index = 0;
+      $specialIndex = 0;
+      foreach($clientOrderArr as $key => $item){
+        //echo(json_encode($item)."\n");
+        if($item['order_id'] == $id){
+          $specialIndex = $index;
+          echo("match" . "\n");
+          //echo(json_encode($key) ."\n");
+          break;
+        }
+        $index = $index + 1;
+      }
+      $tempOrderInfo = $clientOrderArr[$specialIndex];
+      array_splice($clientOrderArr, $specialIndex, 1);
+      array_push($clientOrderArr2, $tempOrderInfo);
+      $client->update([
+        'ongoing_orders_arr' => $clientOrderArr,
+        'current_orders_arr' => $clientOrderArr2,
+        'ongoing_orders' => $client->ongoing_orders - 1,
+        'completed_orders' => $client->completed_orders + 1
+
+      ]);
+
+
+      $order->update([
+        'order_status' => 'completed',
+
+      ]);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+      if( \Gate::allows('isAdmin')){
+        $order = Order::findOrFail($id);
+        if($order->delete()){
+          return new OrderResource($order);
+        }
+      }
+    }
+}

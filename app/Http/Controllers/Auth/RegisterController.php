@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\ClientNewRegistrationMail;
+
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -66,13 +69,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+
         $user = User::create([
+            'id' => $data['id'],
+            'ongoing_orders_arr' => json_decode($data['ongoing_orders_arr']),
+            'current_orders_arr' => json_decode($data['current_orders_arr']),
+
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        $token = $user->createToken('User View Token', ['view-users'])->accessToken;
+        Mail::to($user->email)->send(new ClientNewRegistrationMail());
 
-        return $user; 
+        $token = $user->createToken('User View Token', ['view-users', 'view-orders'])->accessToken;
+
+        return $user;
     }
 }

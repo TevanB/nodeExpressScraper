@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use JamesDordoy\LaravelVueDatatable\Traits\LaravelVueDatatableTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
+    use Notifiable, HasApiTokens ,LaravelVueDatatableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +18,25 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'bio', 'photo', 'type',
+        'id', 'name', 'email', 'password', 'bio', 'photo', 'type', 'payout', 'ongoing_orders', 'ongoing_orders_arr','current_orders_arr', 'completed_orders',
     ];
-
+    protected $dataTableColumns = [
+            'id' => [
+                'searchable' => false,
+            ],
+            'name' => [
+                'searchable' => true,
+            ],
+            'email' => [
+                'searchable' => true,
+            ],
+            'type' => [
+                'searchable' => true,
+            ],
+            'created_at' => [
+                'searchable' => true,
+            ]
+        ];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -36,5 +53,19 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime',
+        'ongoing_orders_arr' =>'array',
+        'current_orders_arr' =>'array',
     ];
+
+
+    /**
+     * A user can have many messages
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+      return $this->hasMany(Message::class);
+    }
 }

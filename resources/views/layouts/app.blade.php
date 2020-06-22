@@ -15,9 +15,53 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bd-wizard.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+      .chat {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .chat li {
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px dotted #B3A9A9;
+      }
+
+      .chat li .chat-body p {
+        margin: 0;
+        color: #777777;
+      }
+
+      .panel-body {
+        overflow-y: scroll;
+        height: 350px;
+      }
+
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+      }
+
+      ::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #555;
+      }
+    </style>
+
 </head>
 <body>
     <div id="app">
@@ -33,7 +77,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                      <li class="nav-item">
+                          <a class="nav-link" href="http://localhost/boosting">{{ __('Boosting') }}</a>
+                      </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -75,6 +121,13 @@
         <main class="py-4">
             @yield('content')
         </main>
+
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <script src="assets/js/jquery.steps.min.js"></script>
+    <script src="assets/js/bd-wizard.js"></script>
 </body>
 </html>

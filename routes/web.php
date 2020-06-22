@@ -14,17 +14,37 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/boosting', function () {
+    return view('layouts.order');
+});
+Route::get('/nextstep', function () {
+    return view('layouts.nextstep');
+});
 
 Route::get('/', function () {
     return view('layouts.app');
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::get('/boosting', 'OrderController@index')->name('home');
+
+/*Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+*/
+Route::get('/chat', 'ChatsController@index')->name('chat');
+
+
+Route::get('messages/{id}', 'ChatsController@fetchMessages');
+
+Route::post('messages', 'ChatsController@sendMessage');
+
+//Route::get('messages/{id}', 'ChatsController@getMessage');
 
 Route::get('{path}',"HomeController@index")->where('path','([A-z\d\-\/_.]+)?');

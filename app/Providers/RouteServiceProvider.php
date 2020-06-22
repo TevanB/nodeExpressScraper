@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
+
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -21,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/dashboard';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -45,6 +47,13 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+        Broadcast::routes();
+        Broadcast::channel('chat', function ($user) {
+          //return Auth::check();
+          return true;
+        });
+
+      //  $this->mapChannelRoutes();
 
         //
     }
@@ -77,4 +86,12 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
     }
+
+    /*protected function mapChannelRoutes()
+    {
+        Route::prefix('channels')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/channels.php'));
+    }*/
 }

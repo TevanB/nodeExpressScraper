@@ -12888,10 +12888,10 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
     float: none;
   }
   .sidebar-mini.sidebar-collapse .main-sidebar:hover, .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused {
-    width: 250px;
+    width: 300px;
   }
   .sidebar-mini.sidebar-collapse .main-sidebar:hover .brand-link, .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused .brand-link {
-    width: 250px;
+    width: 300px;
   }
   .sidebar-mini.sidebar-collapse .main-sidebar:hover .user-panel, .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused .user-panel {
     text-align: left;
@@ -19991,7 +19991,7 @@ html.maximized-card {
 }
 
 .widget-user .widget-user-image > img {
-  border: 3px solid #ffffff;
+  border: 1px solid #808080;
   height: auto;
   width: 90px;
 }
