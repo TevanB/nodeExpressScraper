@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-$user = getenv("DATABASE_URL");
+$url = getenv("DATABASE_URL");
 $host = $url["host"]??null;
 $username = $url["user"]??null;
 $password = $url["pass"]??null;
