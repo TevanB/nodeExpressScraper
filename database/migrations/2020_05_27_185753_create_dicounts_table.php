@@ -19,7 +19,7 @@ class CreateDicountsTable extends Migration
             $table->text('type');
             $table->double('amount', 8, 2);
             $table->integer('uses')->default(0);
-            $table->text('scope')->default('all');
+            $table->text('scope');
         });
     }
 
