@@ -84,7 +84,7 @@ Vue.component('order-chart', require('./components/charts/OrderChart.vue').defau
 Vue.component('user-chart', require('./components/charts/UserChart.vue').default);
 Vue.component('order-form', require('./components/OrderForm.vue').default);
 Vue.component('modal', require('./components/UserModal.vue').default);
-Vue.component('notifications', require('./components/notifications.vue').default);
+//Vue.component('notifications', require('./components/notifications.vue').default);
 
 
 Vue.component('user-image', require('./components/UserImage.vue').default);
