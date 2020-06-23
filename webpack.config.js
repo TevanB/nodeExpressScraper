@@ -65,6 +65,7 @@ module.exports = {
   externals: {
     puppeteer: 'require("puppeteer")',
     fs: 'require("fs")',
+    jquery: 'jQuery',
   },
   node: {
     console: 'empty',
