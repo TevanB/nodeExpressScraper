@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('type')->default('client');
             $table->mediumText('bio')->nullable();
-            $table->longText('photo')->default('profile.png');
+            $table->longText('photo');
             $table->double('payout', 10, 2)->default(0.00);
             $table->string('rank')->default('C');
 

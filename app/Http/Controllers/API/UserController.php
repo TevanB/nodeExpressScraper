@@ -74,7 +74,7 @@ class UserController extends Controller
         'email' => $request['email'],
         'type' => $request['type'],
         'bio' => $request['bio'],
-        'photo' => $request['photo'],
+        'photo' => 'profile.png',
         'password' => Hash::make($request['password']),
         'payout'=> $request['payout'],
         'ongoing_orders' => $request['ongoing_orders'],
