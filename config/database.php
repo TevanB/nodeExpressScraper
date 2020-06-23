@@ -20,7 +20,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql_production'),
+    'default' => env('DB_CONNECTION', 'mysql_production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -82,15 +82,21 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
-        'pgsql_production' => [
-          'driver' => 'pgsql',
+        'mysql_production' => [
+          'driver' => 'mysql',
           'host' => $host,
           'database' => $database,
           'username' => $username,
           'password' => $password,
-          'charset' => 'utf8',
+          'charset' => 'utf8mb4',
+          'collation' => 'utf8mb4_unicode_ci',
           'prefix' => '',
-          'schema' => 'public'
+          'prefix_indexes' => true,
+          'strict' => false,
+          'engine' => null,
+          'options' => extension_loaded('pdo_mysql') ? array_filter([
+              PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+          ]) : [],
         ],
         'sqlsrv' => [
             'driver' => 'sqlsrv',
