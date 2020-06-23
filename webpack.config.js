@@ -18,7 +18,10 @@ require(Mix.paths.mix());
  */
 
 Mix.dispatch('init', Mix);
+const mix2 = require('laravel-mix');
 
+mix2.js('resources/js/app.js', 'public/js').sourceMaps()
+   .sass('resources/sass/app.scss', 'public/css');
 /**
  * Now that we know which build tasks are required by the
  * user, we can dynamically create a configuration object
@@ -65,7 +68,7 @@ module.exports = {
   externals: {
     puppeteer: 'require("puppeteer")',
     fs: 'require("fs")',
-    jquery: 'jQuery',
+
   },
   node: {
     console: 'empty',
