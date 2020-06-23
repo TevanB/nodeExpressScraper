@@ -10,7 +10,7 @@ Thanks again for choosing BMS Boosting for your order!
 Regards,
 BMS Boosting Customer Support Team
 
-@component('mail::button', ['url' => 'http://localhost/dashboard'])
+@component('mail::button', ['url' => 'https://bms-dash.herokuapp.com/dashboard'])
 Dashboard
 @endcomponent
 

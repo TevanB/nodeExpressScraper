@@ -583,7 +583,7 @@
               }
             }
 
-              axios.get("http://localhost/api/orders").then((data)=>{
+              axios.get("https://bms-dash.herokuapp.com/api/orders").then((data)=>{
                 let response = data.data.data;
 
                 console.log(response);
@@ -607,7 +607,7 @@
 
           //    $('#reassignAlerts').append(
           //    "<div class='alert alert-warning alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-exclamation-triangle'></i> Reassign Request!</h5>Reassign request from Order # "+ e.orderID +" .</div>");
-              axios.get("http://localhost/api/orders").then((data)=>{
+              axios.get("https://bms-dash.herokuapp.com/api/orders").then((data)=>{
                 this.orders=data;
                 let response = data.data.data;
                 console.log(response);
@@ -637,7 +637,7 @@
               window.Echo.private('claims')
                 .listen('order-claimed', (e) => {
                   $('#claim'+e.orderID).remove();
-                  axios.get('http://localhost/api/user').then((data)=>{
+                  axios.get('https://bms-dash.herokuapp.com/api/user').then((data)=>{
                     let userList = data.data.data;
                     //console.log(userList);
                     for(let j=0; j<userList.length; j++){
@@ -671,7 +671,7 @@
             if(this.$gate.isAdmin){
 
 
-            axios.get("http://localhost/api/user").then((data)=>{console.log(data.data.data); this.users=data.data.data});
+            axios.get("https://bms-dash.herokuapp.com/api/user").then((data)=>{console.log(data.data.data); this.users=data.data.data});
 
 
             }
@@ -725,7 +725,7 @@
           adminPayouts(){
             let counter = 0;
             let ordersP = ''
-            axios.get("http://localhost/api/orders").then((data)=>{
+            axios.get("https://bms-dash.herokuapp.com/api/orders").then((data)=>{
               ordersP = data.data.data;
 
             for(let i=0; i<ordersP.length; i++){
@@ -745,8 +745,8 @@
                 }
               }
             }
-            axios.put('http://localhost/api/payouts');
-            axios.get("http://localhost/api/me").then((data)=>{
+            axios.put('https://bms-dash.herokuapp.com/api/payouts');
+            axios.get("https://bms-dash.herokuapp.com/api/me").then((data)=>{
               this.userPP.fill(data.data);
               this.userPP.payout += counter;
               axios.put('api/me', this.userPP).then((data)=>{
@@ -765,7 +765,7 @@
             let that = this;
             $.ajax({
               method: 'GET',
-              url: 'http://localhost:8001/rankings/'+JSON.parse(oObj.order_message).summoner_name,
+              url: 'https://bms-dash.herokuapp.com:8001/rankings/'+JSON.parse(oObj.order_message).summoner_name,
               success: function(data){
                 let ranks = ['I4', 'I3', 'I2', 'I1', 'B4', 'B3', 'B2', 'B1', 'S4', 'S3', 'S2', 'S1', 'G4', 'G3', 'G2', 'G1', 'P4', 'P3', 'P2', 'P1', 'D4', 'D3', 'D2', 'D1', "M", 'GM', 'C'];
                 let ranks2 = ['Iron 4', 'Iron 3', 'Iron 2', 'Iron 1', 'Bronze 4', 'Bronze 3', 'Bronze 2', 'Bronze 1', 'Silver 4', 'Silver 3', 'Silver 2', 'Silver 1', 'Gold 4', 'Gold 3', 'Gold 2', 'Gold 1', 'Platinum 4', 'Platinum 3', 'Platinum 2', 'Platinum 1', 'Diamond 4', 'Diamond 3', 'Diamond 2', 'Diamond 1', "Master", 'GM', 'C'];
@@ -887,7 +887,7 @@
 
             let inputObj = [cOrder, this.newOrder];
 
-            axios.put('http://localhost/api/orderRe', inputObj).then(()=>{
+            axios.put('https://bms-dash.herokuapp.com/api/orderRe', inputObj).then(()=>{
               swal.fire(
                 'Created!',
                 'Your reassignment has been sent out to boosters.',
@@ -896,7 +896,7 @@
 
             });
             oObj.order_status = 'reassign';
-            axios.put("http://localhost/api/orders/"+oObj.order_id, oObj).then(()=>{
+            axios.put("https://bms-dash.herokuapp.com/api/orders/"+oObj.order_id, oObj).then(()=>{
 
             });
 
@@ -917,7 +917,7 @@
           },
           markReassigned(order, person){
             order.order_status = 'reassigned';
-            axios.put("http://localhost/api/reassigned/"+order.order_id, order).then(()=>{
+            axios.put("https://bms-dash.herokuapp.com/api/reassigned/"+order.order_id, order).then(()=>{
               toast.fire({
                 icon: 'success',
                 title: 'Order Marked as Reassigned!'
@@ -927,7 +927,7 @@
           markFinished(order, person){
 
 
-            axios.put('http://localhost/api/finished/'+order.order_id).then((data)=>{
+            axios.put('https://bms-dash.herokuapp.com/api/finished/'+order.order_id).then((data)=>{
               toast.fire({
                 icon: 'success',
                 title: 'Order Marked as Completed!'
@@ -950,7 +950,7 @@
             let adjustedPrice = (order.order_price*0.96)-0.3;
             let bCut = Math.floor(adjustedPrice*0.7);
             person.payout += bCut;
-            axios.put("http://localhost/api/orders/"+order.order_id, order).then(()=>{
+            axios.put("https://bms-dash.herokuapp.com/api/orders/"+order.order_id, order).then(()=>{
               toast.fire({
                 icon: 'success',
                 title: 'Order Marked as Completed'
@@ -962,7 +962,7 @@
               })
             });
 
-            axios.put("http://localhost/api/user/"+person.id, person).then(()=>{
+            axios.put("https://bms-dash.herokuapp.com/api/user/"+person.id, person).then(()=>{
               console.log("User Update Success");
             }).catch(()=>{
               console.log("User Update Failed");
@@ -974,7 +974,7 @@
             if(this.$gate.isAdmin){
 
 
-            axios.get("http://localhost/api/orders").then((data)=>{
+            axios.get("https://bms-dash.herokuapp.com/api/orders").then((data)=>{
               this.orders=data;
 
             });
@@ -1038,7 +1038,7 @@
                 let orderArr = this.orders.data.data;
                 let userOrderArr = [];
 
-                axios.put('http://localhost/api/payouts/'+person.id).then((data)=>{
+                axios.put('https://bms-dash.herokuapp.com/api/payouts/'+person.id).then((data)=>{
                   toast.fire({
                     icon: 'success',
                     title: 'User Payout Complete'
@@ -1051,7 +1051,7 @@
                     person.current_orders_arr[i].payout_status = 'completed';
                   }
                 }*/
-                //axios.put('http://localhost/api/user/'+person.id, person);
+                //axios.put('https://bms-dash.herokuapp.com/api/user/'+person.id, person);
 
 
               });
@@ -1064,7 +1064,7 @@
             }
           },
           adminWithdraw(){
-            axios.get("http://localhost/api/me").then((data)=>{
+            axios.get("https://bms-dash.herokuapp.com/api/me").then((data)=>{
               this.userPP.fill(data.data);
               this.userPP.payout = 0;
               axios.put('api/me', this.userPP).then((data)=>{

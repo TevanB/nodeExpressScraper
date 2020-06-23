@@ -28,13 +28,13 @@ style="opacity: .8">
             console.log(this.form.photo);
             let photo = (this.form.photo.length > 100) ? this.form.photo: "img/profile/"+this.form.photo;
             //return "img/profile/"+this.form.photo;
-            return 'http://localhost/'+photo;
+            return 'https://bms-dash.herokuapp.com/'+photo;
           },
 
 
         },
         created(){
-          axios.get("http://localhost/api/me").then((data)=>{
+          axios.get("https://bms-dash.herokuapp.com/api/me").then((data)=>{
 
             this.form.fill(data.data);
 

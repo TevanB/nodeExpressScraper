@@ -25,7 +25,7 @@
               <div class="icon">
                 <i class="fas fa-shopping-cart"></i>
               </div>
-              <a href="http://localhost/payments" class="small-box-footer">
+              <a href="https://bms-dash.herokuapp.com/payments" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
               </a>
             </div>
@@ -43,7 +43,7 @@
               <div class="icon">
                 <i class="fas fa-briefcase"></i>
               </div>
-              <a href="http://localhost/payments" class="small-box-footer">
+              <a href="https://bms-dash.herokuapp.com/payments" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
               </a>
             </div>
@@ -61,7 +61,7 @@
               <div class="icon">
                 <i class="fas fa-hammer"></i>
               </div>
-              <a href="http://localhost/payments" class="small-box-footer">
+              <a href="https://bms-dash.herokuapp.com/payments" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
               </a>
             </div>
@@ -331,7 +331,7 @@
                   Payout requests are usually approved on weekends and will be sent instantly once approved.<br>
                   </div>
                   <div class="timeline-footer">
-                    <a href="http://localhost/profile" target="_blank" class="btn btn-primary btn-sm">Profile</a>
+                    <a href="https://bms-dash.herokuapp.com/profile" target="_blank" class="btn btn-primary btn-sm">Profile</a>
                   </div>
 
             </div>
@@ -375,7 +375,7 @@
                   confirmButtonText: 'Go To Order Page'
                   }).then((result)=>{
                     if(result.value){
-                      window.location.replace('http://localhost/order/'+e.orderID);
+                      window.location.replace('https://bms-dash.herokuapp.com/order/'+e.orderID);
                     }
                   })
                   break;
@@ -404,12 +404,12 @@
             confirmButtonText: 'Go To Order Page'
             }).then((result)=>{
               if(result.value){
-                window.location.replace('http://localhost/order/'+'24252');
+                window.location.replace('https://bms-dash.herokuapp.com/order/'+'24252');
               }
             })
           },
           getUser(){
-            axios.get("http://localhost/api/me").then((data)=>{
+            axios.get("https://bms-dash.herokuapp.com/api/me").then((data)=>{
 
               this.user = data.data;
               //console.log(this.user);

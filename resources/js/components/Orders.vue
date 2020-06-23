@@ -316,7 +316,7 @@
         this.new_order.order_id = Date.now();
         console.log(this.new_order.order_id);
         console.log(this.new_order.order_price);
-          axios.put('http://localhost/api/orders', this.new_order).then(()=>{
+          axios.put('https://bms-dash.herokuapp.com/api/orders', this.new_order).then(()=>{
             swal.fire(
               'Created!',
               'Your order has been successfully created.',

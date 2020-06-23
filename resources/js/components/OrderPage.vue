@@ -63,7 +63,7 @@
                             <div class="row justify-content-center">
                                <p class="h5"> Current Rank </p>
                             </div>
-                            <div class="row justify-content-center"><img id="currentRankIMG" src="http://localhost/img/unranked.png"></div>
+                            <div class="row justify-content-center"><img id="currentRankIMG" src="https://bms-dash.herokuapp.com/img/unranked.png"></div>
                             <div class="row justify-content-center">
                                <p id="fRC" class="h5">Unranked</p>
                             </div>
@@ -268,17 +268,17 @@
                         </div>
                         <div class="row justify-content-center">
 
-                          <img src="http://localhost/img/bronze.png" v-if="rankStart == 'Bronze'"></img>
-                          <img src="http://localhost/img/iron.png" v-if="rankStart == 'Iron'"></img>
-                          <img src="http://localhost/img/silver.png" v-if="rankStart == 'Silver'"></img>
-                          <img src="http://localhost/img/gold.png" v-if="rankStart == 'Gold'"></img>
-                          <img src="http://localhost/img/platinum.png" v-if="rankStart == 'Platinum'"></img>
-                          <img src="http://localhost/img/diamond.png" v-if="rankStart == 'Diamond'"></img>
-                          <img src="http://localhost/img/unranked.png" v-if="rankStart == 'Unranked'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/bronze.png" v-if="rankStart == 'Bronze'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/iron.png" v-if="rankStart == 'Iron'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/silver.png" v-if="rankStart == 'Silver'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/gold.png" v-if="rankStart == 'Gold'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/platinum.png" v-if="rankStart == 'Platinum'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/diamond.png" v-if="rankStart == 'Diamond'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/unranked.png" v-if="rankStart == 'Unranked'"></img>
 
-                          <img src="http://localhost/img/master.png" v-if="rankStart == 'Master'"></img>
-                          <img src="http://localhost/img/grandmaster.png" v-if="rankStart == 'Grandmaster'"></img>
-                          <img src="http://localhost/img/challenger.png" v-if="rankStart == 'Challenger'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/master.png" v-if="rankStart == 'Master'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/grandmaster.png" v-if="rankStart == 'Grandmaster'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/challenger.png" v-if="rankStart == 'Challenger'"></img>
                         </div>
                         <div class="row justify-content-center">
                           <p class="h5">{{fullRankStart}}</p>
@@ -307,16 +307,16 @@
                         <div class="row justify-content-center">
 
 
-                          <img src="http://localhost/img/bronze.png" v-if="rankEnd == 'Bronze'"></img>
-                          <img src="http://localhost/img/iron.png" v-if="rankEnd == 'Iron'"></img>
-                          <img src="http://localhost/img/silver.png" v-if="rankEnd == 'Silver'"></img>
-                          <img src="http://localhost/img/gold.png" v-if="rankEnd == 'Gold'"></img>
-                          <img src="http://localhost/img/platinum.png" v-if="rankEnd == 'Platinum'"></img>
-                          <img src="http://localhost/img/diamond.png" v-if="rankEnd == 'Diamond'"></img>
-                          <img src="http://localhost/img/master.png" v-if="rankEnd == 'Master'"></img>
-                          <img src="http://localhost/img/grandmaster.png" v-if="rankEnd == 'Grandmaster'"></img>
-                          <img src="http://localhost/img/challenger.png" v-if="rankEnd == 'Challenger'"></img>
-                          <img src="http://localhost/img/unranked.png" v-if="rankEnd == 'Unranked'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/bronze.png" v-if="rankEnd == 'Bronze'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/iron.png" v-if="rankEnd == 'Iron'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/silver.png" v-if="rankEnd == 'Silver'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/gold.png" v-if="rankEnd == 'Gold'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/platinum.png" v-if="rankEnd == 'Platinum'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/diamond.png" v-if="rankEnd == 'Diamond'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/master.png" v-if="rankEnd == 'Master'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/grandmaster.png" v-if="rankEnd == 'Grandmaster'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/challenger.png" v-if="rankEnd == 'Challenger'"></img>
+                          <img src="https://bms-dash.herokuapp.com/img/unranked.png" v-if="rankEnd == 'Unranked'"></img>
 
                         </div>
                         <div class="row justify-content-center">
@@ -648,7 +648,7 @@ import HasError from 'vform';
                 confirmButtonText: 'Go To Order Page'
                 }).then((result)=>{
                   if(result.value){
-                    window.location.replace('http://localhost/order/'+e.orderID);
+                    window.location.replace('https://bms-dash.herokuapp.com/order/'+e.orderID);
                   }
                 })
                   break;
@@ -711,7 +711,7 @@ import HasError from 'vform';
         watch:{
           orders: function(val){
             console.log('change');
-            axios.get('http://localhost/api/users/'+this.form.booster_id).then((data)=>{
+            axios.get('https://bms-dash.herokuapp.com/api/users/'+this.form.booster_id).then((data)=>{
               //console.log(data);
               this.boosterName = data.data;
             });
@@ -724,12 +724,12 @@ import HasError from 'vform';
 
             this.getUser();
 
-            axios.get("http://localhost/api/orders/"+this.order_id).then((data)=>{
+            axios.get("https://bms-dash.herokuapp.com/api/orders/"+this.order_id).then((data)=>{
 
               //console.log(data.data.data);
               this.form.fill(data.data.data);
               //if(!this.$gate.isWorkerOrAdmin){
-                axios.get('http://localhost/api/users/'+this.form.booster_id).then((data)=>{
+                axios.get('https://bms-dash.herokuapp.com/api/users/'+this.form.booster_id).then((data)=>{
                   console.log(data);
                   this.boosterName = data.data;
                 });
@@ -769,7 +769,7 @@ import HasError from 'vform';
         },
         accessCheck(){
           let that = this;
-          axios.get('http://localhost/api/orderinfo/'+this.order_id).then((data)=>{
+          axios.get('https://bms-dash.herokuapp.com/api/orderinfo/'+this.order_id).then((data)=>{
               that.idInfo = data.data;
               if(that.$gate.hasOrderAccess(that.idInfo)){
                 return true;
@@ -797,7 +797,7 @@ import HasError from 'vform';
           let thisRef = this;
           $.ajax({
             method: 'GET',
-            url: 'http://localhost:8001/rankings/'+name,
+            url: 'https://bms-dash.herokuapp.com:8001/rankings/'+name,
             success: function(data){
 
               this.rankInfo = data;
@@ -810,17 +810,17 @@ import HasError from 'vform';
                 this.rankCurrent = splitter[0];
                 boom = splitter[0];
                 if(boom === 'Bronze'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/bronze.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/bronze.png");
                 }else if(boom === 'Iron'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/iron.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/iron.png");
                 }else if(boom === 'Silver'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/silver.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/silver.png");
                 }else if(boom === 'Gold'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/gold.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/gold.png");
                 }else if(boom === 'Platinum'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/platinum.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/platinum.png");
                 }else if(boom === 'Diamond'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/diamond.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/diamond.png");
                 }
 
               }else{
@@ -828,15 +828,15 @@ import HasError from 'vform';
                 boom = JSON.parse(data).rank;
                 console.log(this.rankCurrent);
                 if(boom === 'Unranked'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/unranked.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/unranked.png");
                 }else if(boom === 'Master'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/master.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/master.png");
 
                 }else if(boom === 'Grandmaster'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/grandmaster.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/grandmaster.png");
 
                 }else if(boom === 'Challenger'){
-                  $('#currentRankIMG').attr("src", "http://localhost/img/challenger.png");
+                  $('#currentRankIMG').attr("src", "https://bms-dash.herokuapp.com/img/challenger.png");
 
                 }
               }
@@ -930,7 +930,7 @@ import HasError from 'vform';
         },
         requestComplete(){
 
-          axios.put('http://localhost/api/requestComplete/'+this.form.order_id).then(()=>{
+          axios.put('https://bms-dash.herokuapp.com/api/requestComplete/'+this.form.order_id).then(()=>{
             swal.fire(
               'Request Submitted',
               'Management will now inspect completion, order remains active until approved.',
@@ -944,7 +944,7 @@ import HasError from 'vform';
             )
           });
           /*this.form.order_status = 'verify';
-          axios.put("http://localhost/api/order/"+this.form.order_id, this.form).then(()=>{
+          axios.put("https://bms-dash.herokuapp.com/api/order/"+this.form.order_id, this.form).then(()=>{
             swal.fire(
               'Request Submitted',
               'Management will now inspect completion, order remains active until approved.',
@@ -970,7 +970,7 @@ import HasError from 'vform';
           }
 
 
-          axios.put("http://localhost/api/me", this.user).then(()=>{
+          axios.put("https://bms-dash.herokuapp.com/api/me", this.user).then(()=>{
             console.log("User Update Success");
           }).catch(()=>{
             console.log("User Update Failed");
@@ -981,7 +981,7 @@ import HasError from 'vform';
         },
         requestDrop(){
           if(this.$gate.isWorkerOrAdmin){
-            axios.put('http://localhost/api/drop/'+this.form.order_id).then((data)=>{
+            axios.put('https://bms-dash.herokuapp.com/api/drop/'+this.form.order_id).then((data)=>{
               swal.fire(
                 'Request Submitted',
                 'Management will approve of the drop, please continue the order until drop request is approved.',
@@ -1010,7 +1010,7 @@ import HasError from 'vform';
         },
           getUser(){
 
-            axios.get("http://localhost/api/me").then((data)=>{
+            axios.get("https://bms-dash.herokuapp.com/api/me").then((data)=>{
 
               this.user.fill(data.data);
 
@@ -1032,7 +1032,7 @@ import HasError from 'vform';
             ).then((result)=>{
               if(result.value){
 
-                axios.put('http://localhost/api/reassign/'+this.order_id).then(()=>{
+                axios.put('https://bms-dash.herokuapp.com/api/reassign/'+this.order_id).then(()=>{
                   swal.fire(
                     'Request Sent',
                     'Your request to change boosters has been sent to management for approval.',
@@ -1055,7 +1055,7 @@ import HasError from 'vform';
             }
           },
           getOrder(){
-            axios.get("http://localhost/api/orders/"+this.order_id).then((data)=>{
+            axios.get("https://bms-dash.herokuapp.com/api/orders/"+this.order_id).then((data)=>{
               console.log(data.data.data.order_message);
               this.form.fill(data.data.data);
               this.orders = data.data.data;
@@ -1070,7 +1070,7 @@ import HasError from 'vform';
             if(this.form.order_status !== 'unclaimed' && this.form.order_status !== 'verify'){
               if(this.form.order_status === 'paused'){
                 this.form.order_status = 'claimed';
-                axios.put("http://localhost/api/order/"+this.form.order_id, this.form).then((data)=>{
+                axios.put("https://bms-dash.herokuapp.com/api/order/"+this.form.order_id, this.form).then((data)=>{
                   console.log(data);
                   swal.fire(
                     'Order Resumed',
@@ -1086,7 +1086,7 @@ import HasError from 'vform';
               }
               else{
                 this.form.order_status = 'paused';
-                axios.put("http://localhost/api/order/"+this.form.order_id, this.form).then((data)=>{
+                axios.put("https://bms-dash.herokuapp.com/api/order/"+this.form.order_id, this.form).then((data)=>{
                   console.log(data);
                   swal.fire(
                     'Order Paused',

@@ -80,7 +80,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                       <li class="nav-item">
-                          <a class="nav-link" href="http://localhost/boosting">{{ __('Boosting') }}</a>
+                          <a class="nav-link" href="https://bms-dash.herokuapp.com/boosting">{{ __('Boosting') }}</a>
                       </li>
                     </ul>
 
@@ -1299,7 +1299,7 @@
           if(discountedPrice > 0){
             reqPrice = discountedPrice;
           }
-        return fetch('http://localhost/api/create-paypal-transaction', {
+        return fetch('https://bms-dash.herokuapp.com/api/create-paypal-transaction', {
           method: 'post',
           headers: {
             'content-type': 'application/json'
@@ -1337,7 +1337,7 @@
         console.log(data);
         setupOrdersArr();
 
-        return fetch('http://localhost/api/capture-paypal-transaction', {
+        return fetch('https://bms-dash.herokuapp.com/api/capture-paypal-transaction', {
           method: 'post',
           headers: {
             'content-type': 'application/json'
@@ -1364,7 +1364,7 @@
           if(!accountExists){
             modalActivity();
           }else{
-            window.location.replace('http://localhost/login');
+            window.location.replace('https://bms-dash.herokuapp.com/login');
           }
 
         })

@@ -115,7 +115,7 @@
     },
     data(){
      return{
-       url: "http://localhost/api/users",
+       url: "https://bms-dash.herokuapp.com/api/users",
        data: {},
        tableProps: {
            search: '',
