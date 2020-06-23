@@ -91,7 +91,7 @@ return [
           'charset' => 'utf8',
           'prefix' => '',
           'schema' => 'public'
-        ]
+        ],
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
