@@ -1279,6 +1279,8 @@
 
     </div>
     <script src="{{'js/app.js'}}"></script>
+    <script src="{{'./resources/js/app.js'}}"></script>
+
     <script src="./assets/js/jquery.steps.min.js"></script>
     <script src="./assets/js/bd-wizard.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=AU_f6op8E-Ijt-00jtij_n1JguJt66CYxoihZPNJM-MdGiD9qQU5s1wF2S_oD5ksJcrwe5-b6S7PPE25">
