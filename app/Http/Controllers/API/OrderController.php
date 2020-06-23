@@ -277,6 +277,68 @@ echo(json_encode($boosterOrderArr1)."\n");
         }
       }
     }
+    public function markReassigned(Request $request, $id)
+    {
+      $order = Order::findOrFail($id);
+      $booster = User::findOrFail($order->booster_id);
+      $client = User::findOrFail($order->client_id);
+      $userOrderArr = $booster->ongoing_orders_arr;
+      $userOrderArr2 = $client->ongoing_orders_arr;
+      $compArr = $booster->current_orders_arr;
+      $compArr2 = $client->current_orders_arr;
+
+      $index = 0;
+      $specIndex=0;
+      foreach($userOrderArr as $key => $item){
+        //echo(json_encode($key)."\n");
+        if($item['order_id'] == $id){
+          $userOrderArr[$key]['order_status'] = 'reassigned';
+          $specIndex = $index;
+          break;
+        }
+        $index = $index + 1;
+      }
+//      echo($specIndex . "\n");
+      $tempObj = $userOrderArr[$specIndex];
+      $tempObj['payout_status'] = 'completed';
+      array_splice($userOrderArr, $specIndex, 1);
+      array_push($compArr, $tempObj);
+
+      $index = 0;
+      $specIndex=0;
+      foreach($userOrderArr2 as $key => $item){
+        //echo(json_encode($key)."\n");
+        if($item['order_id'] == $id){
+          $userOrderArr2[$key]['order_status'] = 'reassigned';
+          $specIndex = $index;
+          break;
+        }
+        $index = $index + 1;
+      }
+      //echo($specIndex . "\n");
+      $tempObj = $userOrderArr2[$specIndex];
+      array_splice($userOrderArr2, $specIndex, 1);
+      array_push($compArr2, $tempObj);
+      $order->update([
+        'order_status' => 'reassigned'
+      ]);
+      //echo(json_encode($userOrderArr2)."\n");
+      //echo(json_encode($compArr2)."\n");
+      //echo(json_encode($userOrderArr)."\n");
+      //echo(json_encode($compArr)."\n");
+      $client->update([
+        'ongoing_orders' => $client->ongoing_orders - 1,
+        'completed_orders' => $client->completed_orders + 1,
+        'ongoing_orders_arr' => $userOrderArr2,
+        'current_orders_arr' => $compArr2
+      ]);
+      $booster->update([
+        'ongoing_orders' => $booster->ongoing_orders - 1,
+        'completed_orders' => $booster->completed_orders + 1,
+        'ongoing_orders_arr' => $userOrderArr,
+        'current_orders_arr' => $compArr
+      ]);
+    }
     public function orderInfo(Request $request, $id){
       $order = Order::findOrFail($id);
       $result = array(

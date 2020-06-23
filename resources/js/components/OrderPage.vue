@@ -8,7 +8,7 @@
       <h2 class="text-center" v-if="$gate.isClient()">Current Status: {{form.order_status | upText}}</h2>
       <h2 class="text-center" v-if="$gate.isAdmin()">Current Status: {{form.order_status | upText}}</h2>
       <h2 class="text-center" v-if="$gate.isBoosterOrCoach() && form.order_status=='reassign'">Current Status: Claimed</h2>
-      <h2 class="text-center" v-if="$gate.isBoosterOrCoach() && form.order_status=='reassigned'">Current Status: Claimed</h2>
+      <h2 class="text-center" v-else-if="$gate.isBoosterOrCoach() && form.order_status=='reassigned'">Current Status: Claimed</h2>
       <h2 class="text-center" v-else-if="$gate.isBoosterOrCoach()">Current Status: {{form.order_status | upText}}</h2>
 
       <p class="lead text-center">Order #{{form.order_id}}</p>

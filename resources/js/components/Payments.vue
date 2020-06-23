@@ -104,6 +104,12 @@
 
                   </div>
                 </div>
+                <div class="col">
+                  <h2 class="mt-3 mb-3 ml-3">Order Claims</h2>
+                  <div class="row container-fluid" id="claimAlerts">
+
+                  </div>
+                </div>
               </div>
               <h2 class="mt-3 mb-3 ml-3">Ongoing Orders</h2>
 
@@ -583,12 +589,10 @@
                 console.log(response);
                 for(let i=0; i<response.length; i++){
                   if(response[i].order_status == 'reassign'){
-                  //console.log('reassign match');
                   $('#reassignAlerts').append(
                   "<div class='alert alert-warning alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-exclamation-triangle'></i> Reassign Request!</h5>Reassign request from Order # "+ response[i].order_id +" .</div>");
 
                   }else if(response[i].order_status == 'verify'){
-                  //console.log('oogabooga12');
                   $('#doneAlerts').append(
                   "<div class='alert alert-success alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-check'></i> Completion Request!</h5>Completion request from Order # "+ response[i].order_id +" .</div>");
 
@@ -629,6 +633,29 @@
                 "<div id='done"+e.orderID+"' class='alert alert-success alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-exclamation-triangle'></i> Completion Request!</h5>Completion request from Order # "+ e.orderID +" .</div>");
 
               });
+              let that = this;
+              window.Echo.private('claims')
+                .listen('order-claimed', (e) => {
+                  $('#claim'+e.orderID).remove();
+                  axios.get('http://localhost/api/user').then((data)=>{
+                    let userList = data.data.data;
+                    //console.log(userList);
+                    for(let j=0; j<userList.length; j++){
+                      if(userList[j].type != 'client'){
+                      let tempName = userList[j].name;
+                      for(let k=0; k<userList[j].ongoing_orders_arr.length; k++){
+                        if(userList[j].ongoing_orders_arr[k].order_id == e.orderID){
+                        //console.log('match');
+                          $('#claimAlerts').append(
+                          "<div id='claim"+e.orderID+"' class='alert alert-primary alert-dismissible container-fluid'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><h5><i class='icon fas fa-exclamation-triangle'></i> Order Claim!</h5>"+tempName+" claimed Order # "+ e.orderID +" .</div>");
+                          break;
+                        }
+                      }}
+                    }
+                  });
+
+
+              })
               }
         },
         updated(){
@@ -890,8 +917,11 @@
           },
           markReassigned(order, person){
             order.order_status = 'reassigned';
-            axios.put("http://localhost/api/orders/"+order.order_id, order).then(()=>{
-
+            axios.put("http://localhost/api/reassigned/"+order.order_id, order).then(()=>{
+              toast.fire({
+                icon: 'success',
+                title: 'Order Marked as Reassigned!'
+              })
             });
           },
           markFinished(order, person){

@@ -45,6 +45,7 @@ Route::get('users/{id}', 'API\UserController@getName');
 Route::get('prices', 'API\PricesController@getPrice');
 Route::get('prices/{id}', 'API\PricesController@verifyDiscount');
 Route::put('reassign/{id}', 'API\OrderController@reassignOrder');
+Route::put('reassigned/{id}', 'API\OrderController@markReassigned');
 Route::get('accounts', 'API\AccountsController@checkAcc');
 Route::put('orderRe', 'API\OrderController@createRe');
 Route::put('drop/{id}', 'API\OrderController@dropRequest');
