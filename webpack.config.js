@@ -33,6 +33,7 @@ mix2.js('resources/js/app.js', 'public/js').sourceMaps()
 let WebpackConfig = require('../src/builder/WebpackConfig');
 
 module.exports = {
+  mode: 'production',
   entry: 'index',
   output: {
      path: path.join(__dirname, 'scripts'),
