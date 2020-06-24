@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
-Route::get('email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify');
-Route::get('email/verify', 'App\Http\Controllers\Auth\VerificationController@show');
-Route::put('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend');
+Auth::routes(['verify'=>true]);
+
 Route::get('/boosting', function () {
     return view('layouts.order');
 });
