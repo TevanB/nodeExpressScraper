@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['verify'=>true]);
 
 
 Route::get('/boosting', function () {
@@ -27,10 +28,9 @@ Route::get('/', function () {
 
 
 
-Auth::routes(['verify'=>true]);
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 //Route::get('/boosting', 'OrderController@index')->name('home');
 
@@ -38,13 +38,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/home', 'HomeController@index')->name('home');
 */
-Route::get('/chat', 'ChatsController@index')->name('chat');
+Route::get('/chat', 'ChatsController@index')->name('chat')->middleware('verified');
 
 
-Route::get('messages/{id}', 'ChatsController@fetchMessages');
+Route::get('messages/{id}', 'ChatsController@fetchMessages')->middleware('verified');
 
-Route::post('messages', 'ChatsController@sendMessage');
+Route::post('messages', 'ChatsController@sendMessage')->middleware('verified');
 
 //Route::get('messages/{id}', 'ChatsController@getMessage');
 
-Route::get('{path}',"HomeController@index")->where('path','([A-z\d\-\/_.]+)?');
+Route::get('{path}',"HomeController@index")->where('path','([A-z\d\-\/_.]+)?')->middleware('verified');
