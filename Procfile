@@ -1,2 +1,2 @@
 web: vendor/bin/heroku-php-apache2 public/
-web: node node/server.js
+api: node node/server.js
