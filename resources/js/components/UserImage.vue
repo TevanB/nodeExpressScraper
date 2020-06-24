@@ -28,6 +28,9 @@ style="opacity: .8">
             console.log(this.form.photo);
             let photo = (this.form.photo.length > 100) ? this.form.photo: "img/profile/"+this.form.photo;
             //return "img/profile/"+this.form.photo;
+            if(this.form.photo==''){
+              return "https://bms-dash.herokuapp.com/img/profile/profile.png"
+            }
             return 'https://bms-dash.herokuapp.com/'+photo;
           },
 

@@ -287,6 +287,9 @@
           },
           getProfilePhoto(){
             let photo = (this.form.photo.length > 100) ? this.form.photo: "img/profile/"+this.form.photo;
+            if(this.form.photo == ''){
+              return "img/profile/profile.png";
+            }
             //return "img/profile/"+this.form.photo;
             return photo;
           },
