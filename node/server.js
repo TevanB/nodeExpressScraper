@@ -5,6 +5,7 @@ const cors = require('cors');
 var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors);
 //Scraping start
@@ -33,7 +34,7 @@ app.get('/rankings/:name', function(req, res){
 
 });
 
-app.listen('8001');
+app.listen(PORT);
 
 console.log('Your node server start successfully....');
 
