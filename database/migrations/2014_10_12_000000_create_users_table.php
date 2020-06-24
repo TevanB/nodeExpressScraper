@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             //$emptyArr = array();
             $table->json('ongoing_orders_arr')->nullable();
             $table->json('current_orders_arr')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
