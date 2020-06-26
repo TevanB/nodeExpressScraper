@@ -36,6 +36,6 @@ app.get('/rankings/:name', function(req, res){
 
 app.listen(PORT);
 
-console.log('Your node server start successfully....');
+console.log('Your node server start successfully.... on port '+PORT);
 
 exports = module.exports = app;
