@@ -792,8 +792,8 @@ import HasError from 'vform';
           $('#orderProgressAmt').attr('style', 'width:'+result+'%');
         },
         getRankInfo(name){
-          const PORT = process.env.PORT || 3000;
-
+          let PORT = process.env.PORT || 3000;
+          console.log("port is "+PORT);
           let boom = '';
           let fullBoom='';
           let thisRef = this;
