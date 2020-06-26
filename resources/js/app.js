@@ -179,7 +179,7 @@ const app = new Vue({
     },
 
     created() {
-      console.log(this,herokuPORT);
+      console.log(this.herokuPORT);
     },
 
     methods: {
