@@ -799,6 +799,8 @@ import HasError from 'vform';
           console.log("port is "+PORT);
           console.log("this attempt: "+this.process.env.PORT);
           console.log(process.env);
+          console.log(this.process.env);
+          console.log(this.process);
           console.log("globalPort is "+ this.herokuPORT);
           let boom = '';
           let fullBoom='';
