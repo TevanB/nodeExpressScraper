@@ -751,7 +751,7 @@ import HasError from 'vform';
                 this.getOrder();
               }
 
-            }, 5000);
+            }, 15000);
             window.setInterval(()=>{
               this.getRankInfo(this.orderInfo.summoner_name);
             }, 180000);
