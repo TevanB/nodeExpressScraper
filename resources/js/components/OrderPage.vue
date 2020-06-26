@@ -792,12 +792,14 @@ import HasError from 'vform';
           $('#orderProgressAmt').attr('style', 'width:'+result+'%');
         },
         getRankInfo(name){
+          const PORT = process.env.PORT || 3000;
+
           let boom = '';
           let fullBoom='';
           let thisRef = this;
           $.ajax({
             method: 'GET',
-            url: 'https://bms-dash.herokuapp.com:8001/rankings/'+name,
+            url: 'https://bms-dash.herokuapp.com:"+PORT+"/rankings/'+name,
             success: function(data){
 
               this.rankInfo = data;
