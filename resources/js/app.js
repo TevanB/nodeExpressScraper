@@ -174,11 +174,12 @@ const app = new Vue({
     el: '#app',
     router,
     data: {
-        messages: []
+        messages: [],
+        herokuPORT: process.env.PORT
     },
 
     created() {
-
+      console.log(this,herokuPORT);
     },
 
     methods: {
