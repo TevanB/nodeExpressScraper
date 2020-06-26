@@ -802,7 +802,7 @@ import HasError from 'vform';
           let thisRef = this;
           $.ajax({
             method: 'GET',
-            url: 'https://bms-dash.herokuapp.com:"+PORT+"/rankings/'+name,
+            url: 'https://bms-dash.herokuapp.com:'+PORT+'/rankings/'+name,
             success: function(data){
 
               this.rankInfo = data;
