@@ -797,15 +797,15 @@ import HasError from 'vform';
         getRankInfo(name){
           let PORT = process.env.PORT || 3000;
           console.log("port is "+PORT);
-          console.log(process.env);
-          console.log(process);
-          console.log("globalPort is "+ this.herokuPORT);
+          //console.log(process.env);
+          //console.log(process);
+          //console.log("globalPort is "+ this.herokuPORT);
           let boom = '';
           let fullBoom='';
           let thisRef = this;
           $.ajax({
             method: 'GET',
-            url: 'https://bms-dash.herokuapp.com:'+this.herokuPORT+'/rankings/'+name,
+            url: 'https://bms-dash.herokuapp.com/rankings/'+name,
             success: function(data){
 
               this.rankInfo = data;
