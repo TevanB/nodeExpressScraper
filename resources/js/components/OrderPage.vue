@@ -747,7 +747,9 @@ import HasError from 'vform';
             });
 
             window.setInterval(()=>{
-              this.getOrder();
+              if(this.form.order_status != 'unclaimed'){
+                this.getOrder();
+              }
 
             }, 5000);
             window.setInterval(()=>{
