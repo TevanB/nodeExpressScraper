@@ -797,6 +797,8 @@ import HasError from 'vform';
         getRankInfo(name){
           let PORT = process.env.PORT || 3000;
           console.log("port is "+PORT);
+          console.log("this attempt: "+this.process.env.PORT);
+          console.log(process.env);
           console.log("globalPort is "+ this.herokuPORT);
           let boom = '';
           let fullBoom='';
