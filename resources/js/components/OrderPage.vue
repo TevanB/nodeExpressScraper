@@ -745,6 +745,7 @@ import HasError from 'vform';
               console.log(this.rankStart);
 
             });
+            this.getRankInfo(this.orderInfo.summoner_name);
 
             window.setInterval(()=>{
               if(this.form.order_status != 'unclaimed'){
