@@ -167,7 +167,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 console.log(process.env.PORT);
-
+process.env.VUE_APP_PORT = process.env.PORT || 3000;
+console.log(process.env.VUE_APP_PORT);
 const app = new Vue({
 
 
