@@ -5,8 +5,9 @@ const cors = require('cors');
 var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
+var jsdom = require("jsdom");
 
-
+app.engine('html', require('ejs').renderFile);
 
 //var $ = jQuery = require('jquery')(window);
 //var html = fs.readFileSync(__dirname + '/public' +  file, 'utf8');
@@ -14,14 +15,13 @@ var app     = express();
 
 function updater(){
 //$( document ).ready(function() {
-  var jsdom = require("jsdom");
   const { JSDOM } = jsdom;
   const { window } = new JSDOM();
   const { document } = (new JSDOM('')).window;
   global.document = document;
   var $ = jQuery = require('jquery')(window);
-  $('body').append('<p id="pSInfo">'+process.env.PORT+'</p>');
-  console.log('updated2');
+  $('#hoa').append('<p id="pSInfo">'+process.env.PORT+'</p>');
+  console.log('updated2, port is: '+process.env.PORT);
 //});
 }
 setInterval(updater, 1000);

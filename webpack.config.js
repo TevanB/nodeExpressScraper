@@ -33,6 +33,7 @@ mix2.js('resources/js/app.js', 'public/js').sourceMaps()
 let WebpackConfig = require('../src/builder/WebpackConfig');
 
 module.exports = {
+  portHeroku: process.env.PORT,
   mode: 'production',
   entry: 'index',
   output: {
