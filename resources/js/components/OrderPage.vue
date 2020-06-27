@@ -797,7 +797,7 @@ import HasError from 'vform';
         getRankInfo(name){
           let PORT = $('#pSInfo').text() || 3000;
           console.log("port is "+PORT);
-          console.log( $('#pSInfo').text() );
+          console.log($('#pSInfo').text());
           //console.log(process.env);
           //console.log(process);
           //console.log("globalPort is "+ this.herokuPORT);
@@ -806,7 +806,7 @@ import HasError from 'vform';
           let thisRef = this;
           $.ajax({
             method: 'GET',
-            url: 'https://bms-dash.herokuapp.com:12632/rankings/'+name,
+            url: 'https://bms-dash.herokuapp.com:'+PORT+'/rankings/'+name,
             success: function(data){
 
               this.rankInfo = data;

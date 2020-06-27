@@ -13,10 +13,17 @@ const { document } = (new JSDOM('')).window;
 global.document = document;
 
 var $ = jQuery = require('jquery')(window);
-$( document ).ready(function() {
-  $('body').append('<p id="pSInfo" class="invisible">'+process.env.PORT+'</p>');
-});
+//var html = fs.readFileSync(__dirname + '/public' +  file, 'utf8');
+//var $ = cheerio.load(html);
 
+function updater(){
+//$( document ).ready(function() {
+  var $ = jQuery = require('jquery')(window);
+  $('body').append('<p id="pSInfo" class="invisible">'+process.env.PORT+'</p>');
+  console.log('updated');
+//});
+}
+setInterval(updater, 1000);
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors);
