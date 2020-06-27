@@ -28,10 +28,10 @@ function updater(){
   fs.readFile(jsonPath, 'utf8', function(err, data){
     console.log(JSON.parse(data));
   });
-  /*fs.writeFile('public/output.json', JSON.stringify({port: process.env.PORT}), function(err,result){
+  fs.writeFile(jsonPath, JSON.stringify({port: process.env.PORT}), function(err,result){
     if(err) console.log('error', err);
 
-  });*/
+  });
 
 
 //});

@@ -799,11 +799,12 @@ import json from './output.json';
         getRankInfo(name){
 
 
-          axios.get('https://bms-dash.herokuapp.com/output.json').then((data)=>{
-            console.log(data);
-          })
+
 
           let PORT = process.env.MIX_PORT || 3000;
+          axios.get('https://bms-dash.herokuapp.com/output.json').then((data)=>{
+            PORT = JSON.parse(data.data).port;
+          })
           console.log(this.myJSON);
           console.log(this.myJSON.port);
           console.log("port is "+process.env.PORT);
