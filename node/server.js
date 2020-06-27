@@ -36,7 +36,7 @@ function updater(){
 
 //});
 }
-setInterval(updater, 1000);
+setInterval(updater, 8000);
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors);
