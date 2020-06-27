@@ -6,13 +6,13 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
 var jsdom = require("jsdom");
-
+var path = require('path');
 app.engine('html', require('ejs').renderFile);
 
 //var $ = jQuery = require('jquery')(window);
 //var html = fs.readFileSync(__dirname + '/public' +  file, 'utf8');
 //var $ = cheerio.load(html);
-
+var jsonPath = path.join(__dirname, 'public', 'output.json');
 function updater(){
 //$( document ).ready(function() {
   const { JSDOM } = jsdom;
@@ -25,18 +25,18 @@ function updater(){
 
   console.log('updated2, port is: '+process.env.PORT + " " + process.env.MIX_PORT);
   //fs.writeFileSync('./output.json', JSON.stringify({port: process.env.PORT}));
-
-  fs.writeFile('public/output.json', JSON.stringify({port: process.env.PORT}), function(err,result){
-    if(err) console.log('error', err);
-    fs.readFile('public/output.json', 'utf8', function(err, data){
-      console.log(data);
-    });
+  fs.readFile(jsonPath, 'utf8', function(err, data){
+    console.log(JSON.parse(data));
   });
+  /*fs.writeFile('public/output.json', JSON.stringify({port: process.env.PORT}), function(err,result){
+    if(err) console.log('error', err);
+
+  });*/
 
 
 //});
 }
-setInterval(updater, 8000);
+setInterval(updater, 2000);
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors);
