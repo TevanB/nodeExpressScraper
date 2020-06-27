@@ -12,7 +12,7 @@ app.engine('html', require('ejs').renderFile);
 //var $ = jQuery = require('jquery')(window);
 //var html = fs.readFileSync(__dirname + '/public' +  file, 'utf8');
 //var $ = cheerio.load(html);
-var jsonPath = path.join(__dirname, 'public', 'output.json');
+var jsonPath = path.join('public', 'output.json');
 function updater(){
 //$( document ).ready(function() {
   const { JSDOM } = jsdom;
