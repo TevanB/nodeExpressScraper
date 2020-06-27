@@ -25,7 +25,10 @@ function updater(){
 
   console.log('updated2, port is: '+process.env.PORT + " " + process.env.MIX_PORT);
   //fs.writeFileSync('./output.json', JSON.stringify({port: process.env.PORT}));
-  fs.writeFile('./public/output.json', JSON.stringify({port: process.env.PORT}));
+  fs.readFile('../public/output.json', function(err, data){
+    console.log(data);
+  });
+  fs.writeFile('../public/output.json', JSON.stringify({port: process.env.PORT}));
 
 
 //});
