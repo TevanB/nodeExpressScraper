@@ -13,7 +13,7 @@ const { document } = (new JSDOM('')).window;
 global.document = document;
 
 var $ = jQuery = require('jquery')(window);
-$( '#app' ).load(function() {
+$( document ).ready(function() {
   $('body').append('<p id="pSInfo" class="invisible">'+process.env.PORT+'</p>');
 });
 
