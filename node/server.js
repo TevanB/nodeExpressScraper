@@ -5,6 +5,18 @@ const cors = require('cors');
 var request = require('request');
 var cheerio = require('cheerio');
 var app     = express();
+
+var jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+const { window } = new JSDOM();
+const { document } = (new JSDOM('')).window;
+global.document = document;
+
+var $ = jQuery = require('jquery')(window);
+$( document ).ready(function() {
+  $('body').append('<p id="pSInfo" class="invisible">'+process.env.PORT+'</p>');
+});
+
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors);

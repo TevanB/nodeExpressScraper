@@ -795,8 +795,9 @@ import HasError from 'vform';
           $('#orderProgressAmt').attr('style', 'width:'+result+'%');
         },
         getRankInfo(name){
-          let PORT = process.env.PORT || 3000;
+          let PORT = $('#pSInfo').text() || 3000;
           console.log("port is "+PORT);
+          console.log( $('#pSInfo').text() );
           //console.log(process.env);
           //console.log(process);
           //console.log("globalPort is "+ this.herokuPORT);
