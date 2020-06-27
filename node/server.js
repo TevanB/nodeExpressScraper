@@ -13,6 +13,11 @@ app.engine('html', require('ejs').renderFile);
 //var html = fs.readFileSync(__dirname + '/public' +  file, 'utf8');
 //var $ = cheerio.load(html);
 var jsonPath = path.join('public', 'output.json');
+console.log(jsonPath);
+fs.writeFile(jsonPath, JSON.stringify({port: process.env.PORT}), function(err,result){
+  if(err) console.log('error', err);
+
+});
 function updater(){
 //$( document ).ready(function() {
   const { JSDOM } = jsdom;
@@ -36,7 +41,7 @@ function updater(){
 
 //});
 }
-setInterval(updater, 2000);
+//setInterval(updater, 2000);
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors);
