@@ -18,6 +18,7 @@ fs.writeFile(jsonPath, JSON.stringify({port: process.env.PORT}), function(err,re
   if(err) console.log('error', err);
 
 });
+fs.writeFileSync(jsonPath, JSON.stringify({port: process.env.PORT}));
 function updater(){
 //$( document ).ready(function() {
   const { JSDOM } = jsdom;
