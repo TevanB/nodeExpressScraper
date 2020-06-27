@@ -24,6 +24,7 @@ function updater(){
   process.env.MIX_PORT = process.env.PORT;
 
   console.log('updated2, port is: '+process.env.PORT + " " + process.env.MIX_PORT);
+  fs.writeFileSync('./output.json', JSON.stringify({port: process.env.PORT}));
 
 //});
 }

@@ -558,11 +558,13 @@
 
 import Form from 'vform';
 import HasError from 'vform';
+import json from './output.json';
     export default {
 
         data(){
 
          return{
+         myJSON: JSON.parse(json),
          tipValue : 10,
            orders: {},
            rankInfo:{},
@@ -796,9 +798,11 @@ import HasError from 'vform';
         },
         getRankInfo(name){
           let PORT = process.env.MIX_PORT || 3000;
+          console.log(this.myJSON);
+          console.log(this.myJSON.port);
           console.log("port is "+process.env.PORT);
-          console.log(process.env.MIX_PORT);
           console.log($('#pSInfo').text());
+
 
           //console.log(process.env);
           //console.log(process);
