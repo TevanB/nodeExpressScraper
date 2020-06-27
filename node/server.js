@@ -14,10 +14,10 @@ app.engine('html', require('ejs').renderFile);
 //var $ = cheerio.load(html);
 var jsonPath = path.join('public', 'output.json');
 console.log(jsonPath);
-fs.writeFile(jsonPath, JSON.stringify({port: process.env.PORT}), function(err,result){
+/*fs.writeFile(jsonPath, JSON.stringify({port: process.env.PORT}), function(err,result){
   if(err) console.log('error', err);
 
-});
+});*/
 fs.writeFileSync(jsonPath, JSON.stringify({port: process.env.PORT}));
 function updater(){
 //$( document ).ready(function() {
