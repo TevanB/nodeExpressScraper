@@ -8,7 +8,7 @@ var app     = express();
 
 
 
-var $ = jQuery = require('jquery')(window);
+//var $ = jQuery = require('jquery')(window);
 //var html = fs.readFileSync(__dirname + '/public' +  file, 'utf8');
 //var $ = cheerio.load(html);
 
