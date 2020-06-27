@@ -564,7 +564,7 @@ import json from './output.json';
         data(){
 
          return{
-         myJSON: JSON.parse(json),
+         myJSON: json,
          tipValue : 10,
            orders: {},
            rankInfo:{},
