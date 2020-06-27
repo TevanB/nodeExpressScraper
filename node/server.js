@@ -21,9 +21,9 @@ function updater(){
   global.document = document;
   var $ = jQuery = require('jquery')(window);
   $('#hoa').append('<p id="pSInfo">'+process.env.PORT+'</p>');
-  process.env.VUE_APP_PORT = process.env.PORT;
+  process.env.MIX_PORT = process.env.PORT;
 
-  console.log('updated2, port is: '+process.env.PORT + " " + process.env.VUE_APP_PORT);
+  console.log('updated2, port is: '+process.env.PORT + " " + process.env.MIX_PORT);
 
 //});
 }

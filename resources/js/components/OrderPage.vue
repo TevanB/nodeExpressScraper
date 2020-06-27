@@ -795,9 +795,9 @@ import HasError from 'vform';
           $('#orderProgressAmt').attr('style', 'width:'+result+'%');
         },
         getRankInfo(name){
-          let PORT = process.env.VUE_APP_PORT || 3000;
+          let PORT = process.env.MIX_PORT || 3000;
           console.log("port is "+process.env.PORT);
-          console.log(process.env.VUE_APP_PORT);
+          console.log(process.env.MIX_PORT);
           console.log($('#pSInfo').text());
 
           //console.log(process.env);
