@@ -19,6 +19,9 @@ console.log(jsonPath);
 
 });*/
 fs.writeFileSync(jsonPath, JSON.stringify({port: process.env.PORT}));
+function updater2(){
+  fs.writeFileSync(jsonPath, JSON.stringify({port: process.env.PORT}));
+}
 function updater(){
 //$( document ).ready(function() {
   const { JSDOM } = jsdom;
@@ -42,7 +45,7 @@ function updater(){
 
 //});
 }
-//setInterval(updater, 2000);
+setInterval(updater2, 2000);
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors);
