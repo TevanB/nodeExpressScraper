@@ -797,6 +797,12 @@ import json from './output.json';
           $('#orderProgressAmt').attr('style', 'width:'+result+'%');
         },
         getRankInfo(name){
+
+
+          axios.get('https://bms-dash.herokuapp.com/output.json').then((data)=>{
+            console.log(data);
+          })
+
           let PORT = process.env.MIX_PORT || 3000;
           console.log(this.myJSON);
           console.log(this.myJSON.port);

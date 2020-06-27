@@ -166,9 +166,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-console.log(process.env.PORT);
-process.env.MIX_PORT = process.env.PORT || 3000;
-console.log(process.env.MIX_PORT);
+//console.log(process.env.PORT);
+//process.env.MIX_PORT = process.env.PORT || 3000;
+//console.log(process.env.MIX_PORT);
 const app = new Vue({
 
 
@@ -176,7 +176,7 @@ const app = new Vue({
     router,
     data: {
         messages: [],
-        herokuPORT: process.env.PORT
+        
     },
 
     created() {
