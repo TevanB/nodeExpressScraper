@@ -801,17 +801,15 @@ import json from './output.json';
 
 
 
-          let PORT = process.env.MIX_PORT || 3000;
-          axios.get('https://bms-dash.herokuapp.com/api/ports').then((data)=>{
-            console.log(data);
-            PORT = data.data;
+//          let PORT = process.env.MIX_PORT || 3000;
+
 
           let boom = '';
           let fullBoom='';
           let thisRef = this;
           $.ajax({
             method: 'GET',
-            url: 'https://bms-dash.herokuapp.com:'+PORT+'/rankings/'+name,
+            url: 'https://bms-dash-node.herokuapp.com/rankings/'+name,
             success: function(data){
 
               this.rankInfo = data;
@@ -863,7 +861,6 @@ import json from './output.json';
             }
 
           });
-          })
 
         },
         parseOrderInfo(input){
