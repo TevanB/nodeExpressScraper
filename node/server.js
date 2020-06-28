@@ -37,7 +37,7 @@ app.use(function(req, res, next){
   next();
 });
 app.get('/rankings/:name', function(req, res){
-
+      console.log('get request heard');
 	    //var parsedResults = [];
       //console.log(req.params);
        opggScrape.getStats(req.params.name, {region: 'na', refresh: false}).then(stats => {
