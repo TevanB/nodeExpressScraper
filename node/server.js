@@ -23,7 +23,6 @@ con.query('update ports set name='+process.env.PORT+', where id=1', function(err
   console.log(rows[0]);
 });
 
-setInterval(updater2, 2000);
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors);
