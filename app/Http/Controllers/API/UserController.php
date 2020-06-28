@@ -88,7 +88,7 @@ class UserController extends Controller
     }
     public function getPort(Request $request){
       //get heroku ports
-      $ports = DB::table('ports')->where('id', 1);
+      $ports = DB::table('ports')->where('id', 1)->value('name');
       return $ports;
     }
     public function getUser(Request $request){
