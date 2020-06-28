@@ -37,7 +37,7 @@ app.use(function(req, res, next){
   res.header("Access-Control-Allow-Headers", "Content-Type, x-socket-id");
   next();
 });
-app.get('/rankings/:name', function(req, res){
+app.get('https://bms-dash.herokuapp.com:'+process.env.PORT+'/rankings/:name', function(req, res){
       console.log('get request heard');
 	    //var parsedResults = [];
       //console.log(req.params);
