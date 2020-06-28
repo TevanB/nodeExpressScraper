@@ -806,15 +806,6 @@ import json from './output.json';
             console.log(data);
             PORT = data.data;
 
-          console.log(this.myJSON);
-          console.log(this.myJSON.port);
-          console.log("port is "+process.env.PORT);
-          console.log($('#pSInfo').text());
-
-
-          //console.log(process.env);
-          //console.log(process);
-          //console.log("globalPort is "+ this.herokuPORT);
           let boom = '';
           let fullBoom='';
           let thisRef = this;
