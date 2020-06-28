@@ -47,7 +47,9 @@ class CaptureOrder
 
     // 3. Call PayPal to capture an authorization
     $client = PayPalClient::client();
-    $response = $client->execute($request);
+    if($request){
+      $response = $client->execute($request);
+    }
     // 4. Save the capture ID to your database. Implement logic to save capture to your database for future reference.
     if ($debug)
     {

@@ -493,7 +493,7 @@ $('#username').on('change', function(e) {
     orderFormObj.type = 'solo';
 });
 $('#regionSel').on('change', function(e){
-  orderFormObj.region = e.target.value;
+  orderFormObj.region = $('#regionSel').val();
   console.log(e.target.value);
 });
 $('#password').on('change', function(e) {
@@ -503,13 +503,13 @@ $('#password').on('change', function(e) {
 $('#emailAddress').on('change', function(e) {
     email = e.target.value;
     orderFormObj.email = e.target.value;
-    orderFormObj.region = e.target.value;
+    orderFormObj.region = $('#regionSel').val();
 
 });
 $('#emailAddress2').on('change', function(e) {
     email = e.target.value;
     orderFormObj.email = e.target.value;
-    orderFormObj.region = e.target.value;
+    orderFormObj.region = $('#regionSel').val();
 
 
 });

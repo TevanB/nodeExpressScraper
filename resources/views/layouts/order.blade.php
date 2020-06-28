@@ -942,7 +942,7 @@
                         <h5 class="text-bold">Server (Required)</h5>
                       </div>
                       <div class="col">
-                        <select class="custom-select bg-dark" name="primary_role" id="rankSel">
+                        <select class="custom-select bg-dark" name="regionSel" id="regionSel">
                           <option value="na" selected="selected">NA</option>
                           <option value="euw">EUW</option>
                           <option value="eune">EUNE</option>
@@ -1025,7 +1025,7 @@
                         <h5 class="text-bold">Server (Required)</h5>
                       </div>
                       <div class="col">
-                        <select class="custom-select bg-dark" name="rankSel" id="rankSel">
+                        <select class="custom-select bg-dark" name="regionSel" id="regionSel">
                           <option value="na" selected="selected">NA</option>
                           <option value="euw">EUW</option>
                           <option value="eune">EUNE</option>
