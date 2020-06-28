@@ -936,6 +936,28 @@
                       </div>
                       <div class="col-2"></div>
                     </div>
+
+                    <div class="row align-items-center mt-4 mb-4">
+                      <div class="col-6">
+                        <h5 class="text-bold">Server (Required)</h5>
+                      </div>
+                      <div class="col">
+                        <select class="custom-select bg-dark" name="primary_role" id="rankSel">
+                          <option value="na" selected="selected">NA</option>
+                          <option value="euw">EUW</option>
+                          <option value="eune">EUNE</option>
+                          <option value="oce">OCE</option>
+                          <option value="lan">LAN</option>
+                          <option value="las">LAS</option>
+                          <option value="br">BR</option>
+                          <option value="jp">JP</option>
+                          <option value="tr">TR</option>
+                          <option value="ru">RU</option>
+                        </select>
+                      </div>
+                      <div class="col-2"></div>
+                    </div>
+
                     <div class="row align-items-center mt-4 mb-4">
                       <div class="col-6">
                         <h5 class="text-bold">Primary Role (Complimentary)</h5>
@@ -997,6 +1019,26 @@
                           </div>
                         </div>
                       </div>
+                    </div>
+                    <div class="row align-items-center mt-4 mb-4">
+                      <div class="col-6">
+                        <h5 class="text-bold">Server (Required)</h5>
+                      </div>
+                      <div class="col">
+                        <select class="custom-select bg-dark" name="rankSel" id="rankSel">
+                          <option value="na" selected="selected">NA</option>
+                          <option value="euw">EUW</option>
+                          <option value="eune">EUNE</option>
+                          <option value="oce">OCE</option>
+                          <option value="lan">LAN</option>
+                          <option value="las">LAS</option>
+                          <option value="br">BR</option>
+                          <option value="jp">JP</option>
+                          <option value="tr">TR</option>
+                          <option value="ru">RU</option>
+                        </select>
+                      </div>
+                      <div class="col-2"></div>
                     </div>
                     <div class="row align-items-center mt-4 mb-4">
                       <div class="col">

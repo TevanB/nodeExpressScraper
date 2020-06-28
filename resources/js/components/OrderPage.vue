@@ -618,6 +618,7 @@ import json from './output.json';
               extras:'',
               starting_lp:'',
               lpg:'',
+              server:'',
 
 
 
@@ -743,11 +744,11 @@ import json from './output.json';
               this.username = tempObj.username;
               this.summName = tempObj.summoner_name;
               this.parseOrderInfo(this.orders.order_type);
-              this.getRankInfo(this.orderInfo.summoner_name);
+              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.rank);
               console.log(this.rankStart);
 
             });
-            this.getRankInfo(this.orderInfo.summoner_name);
+            this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.rank);
 
             window.setInterval(()=>{
               if(this.form.order_status != 'unclaimed'){
@@ -756,7 +757,7 @@ import json from './output.json';
 
             }, 15000);
             window.setInterval(()=>{
-              this.getRankInfo(this.orderInfo.summoner_name);
+              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.rank);
             }, 180000);
 
           }
@@ -796,7 +797,7 @@ import json from './output.json';
           console.log(result);
           $('#orderProgressAmt').attr('style', 'width:'+result+'%');
         },
-        getRankInfo(name){
+        getRankInfo(name, region){
 
 
 
@@ -809,7 +810,7 @@ import json from './output.json';
           let thisRef = this;
           $.ajax({
             method: 'GET',
-            url: 'https://bms-dash-node.herokuapp.com/rankings/'+name,
+            url: 'https://bms-dash-node.herokuapp.com/rankings/'+name+'/'+region,
             success: function(data){
 
               this.rankInfo = data;

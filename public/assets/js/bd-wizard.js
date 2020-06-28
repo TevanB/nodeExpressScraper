@@ -7,7 +7,7 @@ var orderExtrasString="";
 var orderPPString="";
 var orderIdUnique="";
 var orderMessage="";
-var orderFormObj = {type:'', username:'', password:'', email:'', summoner_name:'', discord:'', message:'', lpg:'', starting_lp:'', extras:[]};
+var orderFormObj = {type:'', region:'', username:'', password:'', email:'', summoner_name:'', discord:'', message:'', lpg:'', starting_lp:'', extras:[]};
 var resultt = false;
 let checked=false;
 var endInfoCheck=false;
@@ -492,6 +492,10 @@ $('#username').on('change', function(e) {
     orderFormObj.username = e.target.value;
     orderFormObj.type = 'solo';
 });
+$('#regionSel').on('change', function(e){
+  orderFormObj.region = e.target.value;
+  console.log(e.target.value);
+});
 $('#password').on('change', function(e) {
     password = e.target.value;
     orderFormObj.password = e.target.value;
@@ -499,10 +503,14 @@ $('#password').on('change', function(e) {
 $('#emailAddress').on('change', function(e) {
     email = e.target.value;
     orderFormObj.email = e.target.value;
+    orderFormObj.region = e.target.value;
+
 });
 $('#emailAddress2').on('change', function(e) {
     email = e.target.value;
     orderFormObj.email = e.target.value;
+    orderFormObj.region = e.target.value;
+
 
 });
 $('#discord').on('change', function(e) {
