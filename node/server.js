@@ -20,12 +20,13 @@ var con = mysql.createConnection(process.env.JAWSDB_URL);
 con.connect();
 
 function updater(){
+  console.log(process.env.PORT);
   con.query('UPDATE ports SET name = '+process.env.PORT+' WHERE id = 1', function(err, rows, fields){
     if(err) throw err;
     console.log(rows[0]);
   });
 }
-setInterval(updater, 15000);
+setInterval(updater, 5000);
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors);
