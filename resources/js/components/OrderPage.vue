@@ -805,7 +805,7 @@ import json from './output.json';
           axios.get('https://bms-dash.herokuapp.com/api/ports').then((data)=>{
             console.log(data);
             PORT = data.data;
-          })
+
           console.log(this.myJSON);
           console.log(this.myJSON.port);
           console.log("port is "+process.env.PORT);
@@ -872,6 +872,7 @@ import json from './output.json';
             }
 
           });
+          })
 
         },
         parseOrderInfo(input){
