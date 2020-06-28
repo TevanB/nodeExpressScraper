@@ -744,11 +744,11 @@ import json from './output.json';
               this.username = tempObj.username;
               this.summName = tempObj.summoner_name;
               this.parseOrderInfo(this.orders.order_type);
-              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.rank);
+              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.server);
               console.log(this.rankStart);
 
             });
-            this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.rank);
+            this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.server);
 
             window.setInterval(()=>{
               if(this.form.order_status != 'unclaimed'){
@@ -757,7 +757,7 @@ import json from './output.json';
 
             }, 15000);
             window.setInterval(()=>{
-              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.rank);
+              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.server);
             }, 180000);
 
           }

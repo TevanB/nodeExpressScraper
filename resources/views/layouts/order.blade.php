@@ -1021,10 +1021,10 @@
                       </div>
                     </div>
                     <div class="row align-items-center mt-4 mb-4">
-                      <div class="col-6">
+                      <div class="col">
                         <h5 class="text-bold">Server (Required)</h5>
                       </div>
-                      <div class="col">
+                      <div class="col-3">
                         <select class="custom-select bg-dark" name="regionSel" id="regionSel">
                           <option value="na" selected="selected">NA</option>
                           <option value="euw">EUW</option>
