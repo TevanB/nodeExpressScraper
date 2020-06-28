@@ -59,6 +59,7 @@ Route::post('capture-paypal-transaction', 'PaypalRelated\CaptureOrder@captureOrd
 Route::get('ranks', 'API\RankController@getRank');
 
 Route::get('users', 'API\UserController@index2');
+Route::get('ports', 'API\UserController@getPort');
 /*
 //multiple orders
 Route::get('orders', 'API\OrderController@index');

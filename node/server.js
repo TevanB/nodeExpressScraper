@@ -14,37 +14,15 @@ app.engine('html', require('ejs').renderFile);
 //var $ = cheerio.load(html);
 var jsonPath = path.join('public', 'output.json');
 console.log(jsonPath);
-/*fs.writeFile(jsonPath, JSON.stringify({port: process.env.PORT}), function(err,result){
-  if(err) console.log('error', err);
 
-});*/
-fs.writeFileSync(jsonPath, JSON.stringify({port: process.env.PORT}));
-function updater2(){
-  fs.writeFileSync(jsonPath, JSON.stringify({port: process.env.PORT}));
-}
-function updater(){
-//$( document ).ready(function() {
-  const { JSDOM } = jsdom;
-  const { window } = new JSDOM();
-  const { document } = (new JSDOM('')).window;
-  global.document = document;
-  var $ = jQuery = require('jquery')(window);
-  $('#hoa').append('<p id="pSInfo">'+process.env.PORT+'</p>');
-  process.env.MIX_PORT = process.env.PORT;
+var mysql = require('mysql');
+var con = mysql.createConnection(process.env.JAWSDB_URL);
+con.connect();
+con.query('update ports set name='+process.env.PORT+', where id=1', function(err, rows, fields){
+  if(err) throw err;
+  console.log(rows[0]);
+});
 
-  console.log('updated2, port is: '+process.env.PORT + " " + process.env.MIX_PORT);
-  //fs.writeFileSync('./output.json', JSON.stringify({port: process.env.PORT}));
-  fs.readFile(jsonPath, 'utf8', function(err, data){
-    console.log(JSON.parse(data));
-  });
-  fs.writeFile(jsonPath, JSON.stringify({port: process.env.PORT}), function(err,result){
-    if(err) console.log('error', err);
-
-  });
-
-
-//});
-}
 setInterval(updater2, 2000);
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
