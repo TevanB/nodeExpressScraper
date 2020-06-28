@@ -18,7 +18,7 @@ console.log(jsonPath);
 var mysql = require('mysql');
 var con = mysql.createConnection(process.env.JAWSDB_URL);
 con.connect();
-con.query('update ports set name='+process.env.PORT+', where id=1', function(err, rows, fields){
+con.query('UPDATE ports SET name = '+process.env.PORT+' WHERE id = 1', function(err, rows, fields){
   if(err) throw err;
   console.log(rows[0]);
 });
