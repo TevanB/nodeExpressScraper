@@ -37,11 +37,11 @@ app.use(function(req, res, next){
   res.header("Access-Control-Allow-Headers", "Content-Type, x-socket-id");
   next();
 });
-app.get('/rankings/:name', function(req, res){
+app.get('/rankings/:name/:server', function(req, res){
       console.log('get request heard');
 	    //var parsedResults = [];
       //console.log(req.params);
-       opggScrape.getStats(req.params.name, {region: 'na', refresh: false}).then(stats => {
+       opggScrape.getStats(req.params.name, {region: req.params.server, refresh: false}).then(stats => {
          //console.log(req.params);
          //var path = './public/output.json';
          res.send(JSON.stringify(stats));
