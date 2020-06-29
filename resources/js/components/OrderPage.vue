@@ -618,7 +618,7 @@ import json from './output.json';
               extras:'',
               starting_lp:'',
               lpg:'',
-              server:'',
+              region:'',
 
 
 
@@ -744,11 +744,11 @@ import json from './output.json';
               this.username = tempObj.username;
               this.summName = tempObj.summoner_name;
               this.parseOrderInfo(this.orders.order_type);
-              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.server);
+              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.region);
               console.log(this.rankStart);
 
             });
-            this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.server);
+            this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.region);
 
             window.setInterval(()=>{
               if(this.form.order_status != 'unclaimed'){
@@ -757,7 +757,7 @@ import json from './output.json';
 
             }, 15000);
             window.setInterval(()=>{
-              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.server);
+              this.getRankInfo(this.orderInfo.summoner_name, this.orderInfo.region);
             }, 180000);
 
           }
